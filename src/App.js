@@ -90,17 +90,24 @@ const center = {
 
 const places = [
   { 
-    name: 'location one',
+    name: 'Hopscotch - Southside',
     location: {
-      lat: 39.16,
-      lng: -86.52
+      lat: 39.157400,
+      lng: -86.536230
     }
   },
   { 
-    name: 'location two',
+    name: 'Soma - Downtown',
     location: {
-      lat: 39.1,
-      lng: -86.5
+      lat: 39.166260,
+      lng: -86.530083
+    }
+  },
+  { 
+    name: 'Needmore Coffee Roasters',
+    location: {
+      lat: 39.167210,
+      lng: -86.494560
     }
   },
 ]
@@ -114,14 +121,14 @@ export default function MyComponent() {
         mapContainerStyle={containerStyle}
         center={center}
         zoom={12}
-      >
-        { /* Child components, such as markers, info windows, etc. */ 
-          places.map( place => {
-            return (
-
-            <Marker key={place.name} position={place.location}/>
-          )})
-        }
+      > 
+      { /* Child components, such as markers, info windows, etc. */ }
+      { 
+        places.map( place => {
+          return (
+          <Marker key={place.name} position={place.location}/>
+        )})
+      }
       </GoogleMap>
     </LoadScript>
   )

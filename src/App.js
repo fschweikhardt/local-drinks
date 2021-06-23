@@ -73,67 +73,6 @@
 //   apiKey: config.MAPS_KEY
 // })(MapContainer);
 
-
-import React from 'react'
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
-import config from './config';
-
-const containerStyle = {
-  width: '800px',
-  height: '800px'
-};
-
-const center = {
-    lat: 39.1636505,
-    lng: -86.525757
-  }
-
-const places = [
-  { 
-    name: 'Hopscotch - Southside',
-    location: {
-      lat: 39.157400,
-      lng: -86.536230
-    }
-  },
-  { 
-    name: 'Soma - Downtown',
-    location: {
-      lat: 39.166260,
-      lng: -86.530083
-    }
-  },
-  { 
-    name: 'Needmore Coffee Roasters',
-    location: {
-      lat: 39.167210,
-      lng: -86.494560
-    }
-  },
-]
-
-export default function MyComponent() {
-  return (
-    <LoadScript
-      googleMapsApiKey={config.MAPS_KEY}
-    >
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={12}
-      > 
-      { /* Child components, such as markers, info windows, etc. */ }
-      { 
-        places.map( place => {
-          return (
-          <Marker key={place.name} position={place.location}/>
-        )})
-      }
-      </GoogleMap>
-    </LoadScript>
-  )
-}
-
 // import React from 'react';
 // import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 // import config from './config';
@@ -205,3 +144,90 @@ export default function MyComponent() {
 //   )
 
 // }
+
+import React from 'react'
+import { useState } from 'react'
+import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api'
+import config from './config';
+
+const containerStyle = {
+  width: '800px',
+  height: '800px'
+};
+
+const center = {
+    lat: 39.1636505,
+    lng: -86.525757
+  }
+
+const places = [
+  { 
+    name: 'Hopscotch - Southside',
+    location: {
+      lat: 39.157400,
+      lng: -86.536230
+    }
+  },
+  { 
+    name: 'Soma - Downtown',
+    location: {
+      lat: 39.166260,
+      lng: -86.530083
+    }
+  },
+  { 
+    name: 'Needmore Coffee Roasters',
+    location: {
+      lat: 39.167210,
+      lng: -86.494560
+    }
+  },
+]
+
+function MyComponent() {
+
+  const [ selected, setSelected ] = useState({})
+
+  const onSelect = item => {
+    console.log(item)
+    setSelected(item);
+  }
+
+  return (
+    <LoadScript
+      googleMapsApiKey={config.MAPS_KEY}
+    >
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={center}
+        zoom={12}
+      > 
+      { /* Child components, such as markers, info windows, etc. */ }
+      { 
+        places.map( place => {
+          return (
+          <Marker 
+            key={place.name} 
+            position={place.location}
+            onClick={()=>onSelect(place)}
+          />
+        )})
+      }
+      {
+        selected.location && 
+        (
+          <InfoWindow
+            position={selected.location}
+            clickable={true}
+            onCloseClick={() => setSelected({})}
+            >
+            <p>{selected.name}</p>
+          </InfoWindow>
+        )
+      }
+      </GoogleMap>
+    </LoadScript>
+  )
+}
+
+export default MyComponent

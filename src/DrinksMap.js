@@ -24,37 +24,47 @@ export default function DrinksMap() {
     }
   
     return (
-      <LoadScript
-        googleMapsApiKey={config.MAPS_KEY}
-      >
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={center}
-          zoom={12}
-        > 
-        { 
-          PLACES.map( place => {
-            return (
-            <Marker 
-              key={place.name} 
-              position={place.location}
-              onClick={()=>onSelect(place)}
-            />
-          )})
-        }
-        {
-          selected.location && 
-          (
-            <InfoWindow
-              position={selected.location}
-              clickable={true}
-              onCloseClick={() => setSelected({})}
-              >
-              <p>{selected.name}</p>
-            </InfoWindow>
-          )
-        }
-        </GoogleMap>
-      </LoadScript>
+        <div style={{
+            padding:'50px',
+            textAlign:'center',
+            position: 'fixed',
+            }}>
+            <hr />
+            <h1>LOCAL DRINKS</h1>
+            <hr />
+            <br />
+            <LoadScript
+                googleMapsApiKey={config.MAPS_KEY}
+            >
+                <GoogleMap
+                mapContainerStyle={containerStyle}
+                center={center}
+                zoom={12}
+                > 
+                { 
+                PLACES.map( place => {
+                    return (
+                    <Marker 
+                    key={place.name} 
+                    position={place.location}
+                    onClick={()=>onSelect(place)}
+                    />
+                )})
+                }
+                {
+                selected.location && 
+                (
+                    <InfoWindow
+                    position={selected.location}
+                    clickable={true}
+                    onCloseClick={() => setSelected({})}
+                    >
+                    <p>{selected.name}</p>
+                    </InfoWindow>
+                )
+                }
+                </GoogleMap>
+            </LoadScript>
+        </div>
     )
   }

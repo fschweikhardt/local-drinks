@@ -32,43 +32,34 @@ export default function DrinksMap() {
         lng: -86.525757
     }
     
-    console.log(selectedPlaces)
-    console.log(selectedMarker)
-    
-    const filtered = selectedPlaces.map( place => {
+    const filteredPlaces = selectedPlaces.map( place => {
         return (
         <Marker 
-        key={place.name} 
-        position={place.location}
-        onClick={()=>onSelectMarker(place)}
-        />
-    )})
-
-    const placeMarkers = PLACES.map( place => {
-        return (
-        <Marker 
-        key={place.name} 
-        position={place.location}
-        onClick={()=>onSelectMarker(place)}
+            key={place.name} 
+            position={place.location}
+            onClick={()=>onSelectMarker(place)}
         />
     )})
 
     const markerInfoWindow = selectedMarker.location && 
-    (
+        (
         <InfoWindow
-        position={selectedMarker.location}
-        clickable={true}
-        onCloseClick={() => setSelectedMarker({})}
-        >
-        <p>{selectedMarker.name}</p>
+            position={selectedMarker.location}
+            clickable={true}
+            onCloseClick={() => setSelectedMarker({})}
+            >
+            <p>{selectedMarker.name}</p>
         </InfoWindow>
-    )
+        )
 
+    // console.log(selectedPlaces)
+    // console.log(selectedMarker)
+    
     return (
         <div style={{
             padding:'50px',
             textAlign:'center',
-            position: 'fixed',
+            position: 'absolute'
             }}>
             <hr />
             <h1>LOCAL DRINKS</h1>
@@ -92,9 +83,9 @@ export default function DrinksMap() {
                 <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={center}
-                zoom={12}
+                zoom={13}
                 > 
-                {selectedPlaces === {} ? placeMarkers : filtered}
+                {selectedPlaces ? filteredPlaces : null}
                 {markerInfoWindow}
                 </GoogleMap>
             </LoadScript>

@@ -27,16 +27,24 @@ export const PLACES = [
         type: 'beer',
         name: 'Upland Brewery',
         location: {
-            lat: 39.16,
-            lng: -86.49
+            lat: 39.173531,
+            lng: -86.537422
         }
     },
     { 
         type: 'beer',
         name: 'Bloomington Brewing Company',
         location: {
-            lat: 39.14,
-            lng: -86.45
+            lat: 39.166270,
+            lng: -86.527590
+        }
+    },
+    { 
+        type: 'beer',
+        name: 'Switchyard Brewing Company',
+        location: {
+            lat: 39.170139,
+            lng: -86.533951
         }
     },
   ]

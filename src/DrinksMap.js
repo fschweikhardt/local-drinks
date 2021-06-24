@@ -6,11 +6,20 @@ import { PLACES } from './Places'
 
 export default function DrinksMap() {
 
-    const [ selected, setSelected ] = useState({})
-  
-    const onSelect = item => {
-      console.log(item)
-      setSelected(item);
+    const [ selectedMarker, setSelectedMarker ] = useState({})
+    const [ selectedPlaces, setSelectedPlaces ] = useState([])
+
+    const changeDrink = e => {
+        console.log(e)
+        let updatedPlaces = PLACES.filter( place => {
+            return place.type === e ? place : null
+        })
+        console.log(updatedPlaces)
+        setSelectedPlaces(updatedPlaces)
+    }
+
+    const onSelectMarker = item => {
+      setSelectedMarker(item);
     }
 
     const containerStyle = {
@@ -22,7 +31,39 @@ export default function DrinksMap() {
         lat: 39.1636505,
         lng: -86.525757
     }
-  
+    
+    console.log(selectedPlaces)
+    console.log(selectedMarker)
+    
+    const filtered = selectedPlaces.map( place => {
+        return (
+        <Marker 
+        key={place.name} 
+        position={place.location}
+        onClick={()=>onSelectMarker(place)}
+        />
+    )})
+
+    const placeMarkers = PLACES.map( place => {
+        return (
+        <Marker 
+        key={place.name} 
+        position={place.location}
+        onClick={()=>onSelectMarker(place)}
+        />
+    )})
+
+    const markerInfoWindow = selectedMarker.location && 
+    (
+        <InfoWindow
+        position={selectedMarker.location}
+        clickable={true}
+        onCloseClick={() => setSelectedMarker({})}
+        >
+        <p>{selectedMarker.name}</p>
+        </InfoWindow>
+    )
+
     return (
         <div style={{
             padding:'50px',
@@ -33,6 +74,18 @@ export default function DrinksMap() {
             <h1>LOCAL DRINKS</h1>
             <hr />
             <br />
+            <h3>pick your drink type</h3>
+            <form onChange={(e)=>changeDrink(e.target.value)}>
+                <label htmlFor='drinks'>
+                    coffee
+                    <input type='radio' name='drinks' value='coffee'/>
+                </label>
+                <label htmlFor='drinks'>
+                    beer
+                    <input type='radio' name='drinks' value='beer'/>
+                </label>
+            </form>
+            <br />
             <LoadScript
                 googleMapsApiKey={config.MAPS_KEY}
             >
@@ -41,28 +94,8 @@ export default function DrinksMap() {
                 center={center}
                 zoom={12}
                 > 
-                { 
-                PLACES.map( place => {
-                    return (
-                    <Marker 
-                    key={place.name} 
-                    position={place.location}
-                    onClick={()=>onSelect(place)}
-                    />
-                )})
-                }
-                {
-                selected.location && 
-                (
-                    <InfoWindow
-                    position={selected.location}
-                    clickable={true}
-                    onCloseClick={() => setSelected({})}
-                    >
-                    <p>{selected.name}</p>
-                    </InfoWindow>
-                )
-                }
+                {selectedPlaces === {} ? placeMarkers : filtered}
+                {markerInfoWindow}
                 </GoogleMap>
             </LoadScript>
         </div>

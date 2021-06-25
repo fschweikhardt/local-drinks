@@ -2,6 +2,7 @@ export const PLACES = [
     { 
         type: 'coffee',
         singleOrigin: true,
+        outdoorSeating: false,
         name: 'Hopscotch - Southside',
         location: {
             lat: 39.157400,
@@ -11,6 +12,7 @@ export const PLACES = [
     { 
         type: 'coffee',
         singleOrigin: true,
+        outdoorSeating: true,
         name: 'Soma - Downtown',
         location: {
             lat: 39.166260,
@@ -20,6 +22,7 @@ export const PLACES = [
     { 
         type: 'coffee',
         singleOrigin: false,
+        outdoorSeating: true,
         name: 'Needmore Coffee Roasters',
         location: {
             lat: 39.167210,
@@ -29,6 +32,7 @@ export const PLACES = [
     { 
         type: 'coffee',
         singleOrigin: false,
+        outdoorSeating: false,
         name: 'Crumble Coffee and Bakery - Downtown',
         location: {
             lat: 39.171440,
@@ -38,6 +42,7 @@ export const PLACES = [
     { 
         type: 'coffee',
         singleOrigin: false,
+        outdoorSeating: false,
         name: 'Brilliant Coffee Company',
         location: {
             lat: 39.167300,
@@ -47,6 +52,7 @@ export const PLACES = [
     { 
         type: 'coffee',
         singleOrigin: false,
+        outdoorSeating: true,
         name: 'Inkwell Bakery and Cafe',
         location: {
             lat: 39.166850,

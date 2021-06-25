@@ -18,8 +18,8 @@ export default function DrinksMap() {
         setdrinkTypeSelected(updatedPlaces)
     }
 
-    const setCoffeeFilter = e => {
-        console.log(e)
+    const setFilter = e => {
+        console.log(e.target.value, e.target.checked)
     }
 
     const onSelectMarker = item => {
@@ -38,7 +38,7 @@ export default function DrinksMap() {
     
     const coffeeForm = 
             <div>
-                <form onChange={(e)=>setCoffeeFilter(e.target.value)}>
+                <form onChange={setFilter}>
                     <h3>coffee filters lol</h3>
                     <label htmlFor='coffee-filter'>
                         single origin espresso

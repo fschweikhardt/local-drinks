@@ -7,15 +7,19 @@ import { PLACES } from './Places'
 export default function DrinksMap() {
 
     const [ selectedMarker, setSelectedMarker ] = useState({})
-    const [ selectedPlaces, setSelectedPlaces ] = useState([])
+    const [ drinkTypeSelected, setdrinkTypeSelected ] = useState([])
+    const [ drinkType, setDrinkType ] = useState('')
 
     const changeDrink = e => {
-        console.log(e)
+        setDrinkType(e)
         let updatedPlaces = PLACES.filter( place => {
             return place.type === e ? place : null
         })
-        console.log(updatedPlaces)
-        setSelectedPlaces(updatedPlaces)
+        setdrinkTypeSelected(updatedPlaces)
+    }
+
+    const setCoffeeFilter = e => {
+        console.log(e)
     }
 
     const onSelectMarker = item => {
@@ -32,28 +36,36 @@ export default function DrinksMap() {
         lng: -86.525757
     }
     
-    const filteredPlaces = selectedPlaces.map( place => {
+    const coffeeForm = 
+            <div>
+                <form onChange={(e)=>setCoffeeFilter(e.target.value)}>
+                    <h3>coffee filters lol</h3>
+                    <label htmlFor='coffee-filter'>
+                        single origin espresso
+                        <input type='checkbox' name='single-origin' value='singleOrigin' />
+                    </label>
+                    <br />
+                    <label htmlFor='coffee-filter'>
+                        outdoor seating
+                        <input type='checkbox' name='outdoor-seating' value='outdoorSeating' />
+                    </label>
+                </form>
+                <br />
+            </div>
+
+
+    const domDrinkTypeSelected = drinkTypeSelected.map( place => {
         return (
-        <Marker 
-            key={place.name} 
-            position={place.location}
-            onClick={()=>onSelectMarker(place)}
-        />
+            <Marker 
+                key={place.name} 
+                position={place.location}
+                onClick={()=>onSelectMarker(place)}
+            />
     )})
 
-    const markerInfoWindow = selectedMarker.location && 
-        (
-        <InfoWindow
-            position={selectedMarker.location}
-            clickable={true}
-            onCloseClick={() => setSelectedMarker({})}
-            >
-            <p>{selectedMarker.name}</p>
-        </InfoWindow>
-        )
-
-    // console.log(selectedPlaces)
-    // console.log(selectedMarker)
+    // console.log(drinkTypeSelected)
+    // console.log(selectedMarker.location)
+    // console.log(drinkType)
     
     return (
         <div style={{
@@ -77,16 +89,27 @@ export default function DrinksMap() {
                 </label>
             </form>
             <br />
+
+            {drinkType === 'coffee' ? coffeeForm : null}
+
             <LoadScript
                 googleMapsApiKey={config.MAPS_KEY}
             >
                 <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={center}
-                zoom={13}
+                    mapContainerStyle={containerStyle}
+                    center={center}
+                    zoom={13}
                 > 
-                {selectedPlaces ? filteredPlaces : null}
-                {markerInfoWindow}
+                {drinkTypeSelected ? domDrinkTypeSelected : null}
+                {selectedMarker.location && 
+                    <InfoWindow
+                        position={selectedMarker.location}
+                        clickable={true}
+                        onCloseClick={() => setSelectedMarker({})}
+                        >
+                        <p>{selectedMarker.name}</p>
+                    </InfoWindow>
+                }
                 </GoogleMap>
             </LoadScript>
         </div>

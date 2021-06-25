@@ -18,15 +18,31 @@ export default function DrinksMap() {
         setdrinkTypeSelected(updatedPlaces)
     }
 
-    const setFilter = e => {
-        console.log(e.target.value, e.target.checked)
-        console.log('drinks selected', drinkTypeSelected)
-        // const dynamicFilter = `${e.target.value}`
-        let filteredPlace = drinkTypeSelected.filter( place => {
-            return place.outdoorSeating === true ? place : null
-        })
-        console.log(filteredPlace)
-        setdrinkTypeSelected(filteredPlace)
+    const setCoffeeFilter = e => {
+        changeDrink('coffee')
+        // console.log(e.target.value, e.target.checked)
+        // console.log('drinks selected', drinkTypeSelected)
+        if (e.target.value === 'singleOrigin' && e.target.checked) {
+            let filteredPlace = drinkTypeSelected.filter( place => {
+                        return place.singleOrigin === true ? place : null
+                })
+                // console.log(filteredPlace)
+                setdrinkTypeSelected(filteredPlace)
+            }  
+        if (e.target.value === 'outdoorSeating' && e.target.checked) {
+            let filteredPlace = drinkTypeSelected.filter( place => {
+                        return place.outdoorSeating === true ? place : null
+                })
+                // console.log(filteredPlace)
+                setdrinkTypeSelected(filteredPlace)
+            } 
+
+        // if (e.target.value === 'singleOrigin' && e.target.checked && e.target.value === 'outdoorSeating' && e.target.checked) {
+        //     changeDrink('coffee')
+        // }
+        // console.log(filteredPlace)
+        // setdrinkTypeSelected(filteredPlace)
+        
     }
 
     //----> boring stuff
@@ -45,17 +61,23 @@ export default function DrinksMap() {
     
     const coffeeForm = 
             <div>
-                <form onChange={setFilter}>
+                <form onClick={setCoffeeFilter}>
                     <h3>coffee filters lol</h3>
                     <label htmlFor='coffee-filter'>
                         single origin espresso
-                        <input type='checkbox' name='single-origin' value='singleOrigin' />
+                        <input type='checkbox' value='singleOrigin' />
                     </label>
                     <br />
                     <label htmlFor='coffee-filter'>
                         outdoor seating
-                        <input type='checkbox' name='outdoor-seating' value='outdoorSeating' />
+                        <input type='checkbox' value='outdoorSeating' />
                     </label>
+                    <br />
+                    <button
+                        type='reset'
+                        onClick={()=>changeDrink('coffee')}>
+                        RESET
+                    </button>
                 </form>
                 <br />
             </div>

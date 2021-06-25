@@ -20,21 +20,28 @@ export default function DrinksMap() {
 
     const setFilter = e => {
         console.log(e.target.value, e.target.checked)
+        console.log('drinks selected', drinkTypeSelected)
+        // const dynamicFilter = `${e.target.value}`
+        let filteredPlace = drinkTypeSelected.filter( place => {
+            return place.outdoorSeating === true ? place : null
+        })
+        console.log(filteredPlace)
+        setdrinkTypeSelected(filteredPlace)
     }
 
+    //----> boring stuff
     const onSelectMarker = item => {
       setSelectedMarker(item);
     }
-
     const containerStyle = {
         width: '500px',
         height: '500px'
       };
-      
     const center = {
         lat: 39.1636505,
         lng: -86.525757
     }
+    //-----<
     
     const coffeeForm = 
             <div>
@@ -53,7 +60,7 @@ export default function DrinksMap() {
                 <br />
             </div>
 
-
+    //markers for selected locations on the map
     const domDrinkTypeSelected = drinkTypeSelected.map( place => {
         return (
             <Marker 
@@ -63,10 +70,6 @@ export default function DrinksMap() {
             />
     )})
 
-    // console.log(drinkTypeSelected)
-    // console.log(selectedMarker.location)
-    // console.log(drinkType)
-    
     return (
         <div style={{
             padding:'50px',

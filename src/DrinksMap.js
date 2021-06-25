@@ -49,13 +49,15 @@ export default function DrinksMap() {
     const onSelectMarker = item => {
       setSelectedMarker(item);
     }
+   
     const containerStyle = {
         width: '500px',
         height: '500px'
       };
-    const center = {
-        lat: 39.1636505,
-        lng: -86.525757
+    
+      const center = {
+        lat: 39.1666805,
+        lng: -86.528757
     }
     //-----<
     
@@ -123,7 +125,7 @@ export default function DrinksMap() {
                 <GoogleMap
                     mapContainerStyle={containerStyle}
                     center={center}
-                    zoom={13}
+                    zoom={14}
                 > 
                 {drinkTypeSelected ? domDrinkTypeSelected : null}
                 {selectedMarker.location && 

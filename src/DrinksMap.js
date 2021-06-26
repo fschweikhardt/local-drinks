@@ -6,42 +6,43 @@ import { PLACES } from './Places'
 
 export default function DrinksMap() {
 
-    const [ selectedMarker, setSelectedMarker ] = useState({})
-    const [ drinkTypeSelected, setdrinkTypeSelected ] = useState([])
     const [ drinkType, setDrinkType ] = useState('')
+    const [ placesDisplay, setplacesDisplay ] = useState([])
+    const [ filterObj, setFilterObj ] = useState({})
+    const [ selectedMarker, setSelectedMarker ] = useState({})
 
     const changeDrink = e => {
         setDrinkType(e)
         let updatedPlaces = PLACES.filter( place => {
             return place.type === e ? place : null
         })
-        setdrinkTypeSelected(updatedPlaces)
+        setplacesDisplay(updatedPlaces)
     }
 
-    const setCoffeeFilter = e => {
+    const setFilter = e => {
         changeDrink('coffee')
         // console.log(e.target.value, e.target.checked)
-        // console.log('drinks selected', drinkTypeSelected)
+        // console.log('drinks selected', placesDisplay)
         if (e.target.value === 'singleOrigin' && e.target.checked) {
-            let filteredPlace = drinkTypeSelected.filter( place => {
+            let filteredPlace = placesDisplay.filter( place => {
                         return place.singleOrigin === true ? place : null
                 })
                 // console.log(filteredPlace)
-                setdrinkTypeSelected(filteredPlace)
+                setplacesDisplay(filteredPlace)
             }  
         if (e.target.value === 'outdoorSeating' && e.target.checked) {
-            let filteredPlace = drinkTypeSelected.filter( place => {
+            let filteredPlace = placesDisplay.filter( place => {
                         return place.outdoorSeating === true ? place : null
                 })
                 // console.log(filteredPlace)
-                setdrinkTypeSelected(filteredPlace)
+                setplacesDisplay(filteredPlace)
             } 
 
         // if (e.target.value === 'singleOrigin' && e.target.checked && e.target.value === 'outdoorSeating' && e.target.checked) {
         //     changeDrink('coffee')
         // }
         // console.log(filteredPlace)
-        // setdrinkTypeSelected(filteredPlace)
+        // setplacesDisplay(filteredPlace)
         
     }
 
@@ -61,31 +62,26 @@ export default function DrinksMap() {
     }
     //-----<
     
-    const coffeeForm = 
+    const filterForm = 
             <div>
-                <form onClick={setCoffeeFilter}>
-                    <h3>coffee filters lol</h3>
-                    <label htmlFor='coffee-filter'>
-                        single origin espresso
-                        <input type='checkbox' value='singleOrigin' />
+                <form onClick={setFilter}>
+                    <h3>{place.type}</h3>
+                    <label htmlFor={place.type}>
+                        {place.filters}
+                        <input type='checkbox' value={place.filter.kind} />
                     </label>
                     <br />
-                    <label htmlFor='coffee-filter'>
-                        outdoor seating
-                        <input type='checkbox' value='outdoorSeating' />
-                    </label>
-                    <br />
-                    <button
-                        type='reset'
-                        onClick={()=>changeDrink('coffee')}>
-                        RESET
-                    </button>
                 </form>
+                <button
+                        type='reset'
+                        onClick={()=>changeDrink(`${drinkType}`)}>
+                        RESET
+                </button>
                 <br />
             </div>
 
     //markers for selected locations on the map
-    const domDrinkTypeSelected = drinkTypeSelected.map( place => {
+    const domplacesDisplay = placesDisplay.map( place => {
         return (
             <Marker 
                 key={place.name} 
@@ -117,7 +113,7 @@ export default function DrinksMap() {
             </form>
             <br />
 
-            {drinkType === 'coffee' ? coffeeForm : null}
+            {drinkType === 'coffee' ? filterForm : null}
 
             <LoadScript
                 googleMapsApiKey={config.MAPS_KEY}
@@ -127,7 +123,8 @@ export default function DrinksMap() {
                     center={center}
                     zoom={14}
                 > 
-                {drinkTypeSelected ? domDrinkTypeSelected : null}
+                {placesDisplay ? domplacesDisplay : null}
+
                 {selectedMarker.location && 
                     <InfoWindow
                         position={selectedMarker.location}

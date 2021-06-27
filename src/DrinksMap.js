@@ -8,7 +8,7 @@ export default function DrinksMap() {
 
     const [ drinkType, setDrinkType ] = useState('')
     const [ placesDisplay, setplacesDisplay ] = useState([])
-    const [ filterObj, setFilterObj ] = useState({})
+    // const [ filterObj, setFilterObj ] = useState({})
     const [ selectedMarker, setSelectedMarker ] = useState({})
 
     const changeDrink = e => {
@@ -20,24 +20,25 @@ export default function DrinksMap() {
     }
 
     const setFilter = e => {
-        changeDrink('coffee')
+        console.log(e.target.value, e.target.check)
+
+        // changeDrink('coffee')
         // console.log(e.target.value, e.target.checked)
         // console.log('drinks selected', placesDisplay)
-        if (e.target.value === 'singleOrigin' && e.target.checked) {
-            let filteredPlace = placesDisplay.filter( place => {
-                        return place.singleOrigin === true ? place : null
-                })
-                // console.log(filteredPlace)
-                setplacesDisplay(filteredPlace)
-            }  
-        if (e.target.value === 'outdoorSeating' && e.target.checked) {
-            let filteredPlace = placesDisplay.filter( place => {
-                        return place.outdoorSeating === true ? place : null
-                })
-                // console.log(filteredPlace)
-                setplacesDisplay(filteredPlace)
-            } 
-
+        // if (e.target.value === 'singleOrigin' && e.target.checked) {
+        //     let filteredPlace = placesDisplay.filter( place => {
+        //                 return place.singleOrigin === true ? place : null
+        //         })
+        //         // console.log(filteredPlace)
+        //         setplacesDisplay(filteredPlace)
+        //     }  
+        // if (e.target.value === 'outdoorSeating' && e.target.checked) {
+        //     let filteredPlace = placesDisplay.filter( place => {
+        //                 return place.outdoorSeating === true ? place : null
+        //         })
+        //         // console.log(filteredPlace)
+        //         setplacesDisplay(filteredPlace)
+        //     } 
         // if (e.target.value === 'singleOrigin' && e.target.checked && e.target.value === 'outdoorSeating' && e.target.checked) {
         //     changeDrink('coffee')
         // }
@@ -61,22 +62,39 @@ export default function DrinksMap() {
         lng: -86.528757
     }
     //-----<
-    
+    console.log(placesDisplay)
+
     const filterForm = 
         <div>
             <form onClick={setFilter}>
-                <h3>{place.type} filter</h3>
-                <label htmlFor={place.type}>
-                    {place.filter.map()}
-                    <input type='checkbox' value={`${Object.keys(place.filter)}`} />
-                </label>
+                <h3>{drinkType} filter</h3>
+                    {placesDisplay.map( (place, i) => {
+                        return (
+                            <label htmlFor={place.name} key={i}>
+                                {Object.keys(place.options).map( option => {
+                                    return (
+                                        <>
+                                        {option}
+                                        <input 
+                                            key={i}
+                                            type='checkbox' 
+                                            value={`${option}`
+                                        }/>
+                                        </>
+                                        )
+                                })}
+                                
+                            </label>
+                            )
+                    })}
                 <br />
-            </form>
-            <button
+                <button
                     type='reset'
                     onClick={()=>changeDrink(`${drinkType}`)}>
                     RESET
-            </button>
+                </button>
+            </form>
+            
             <br />
         </div>
 

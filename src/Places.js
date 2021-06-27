@@ -1,7 +1,7 @@
 export const PLACES = [
     { 
         type: 'coffee',
-        filter: {
+        options: {
             singleOrigin: true,
             outdoorSeating: false,
         },
@@ -13,7 +13,7 @@ export const PLACES = [
     },
     { 
         type: 'coffee',
-        filter: {
+        options: {
             singleOrigin: true,
             outdoorSeating: true,
         },
@@ -25,7 +25,7 @@ export const PLACES = [
     },
     { 
         type: 'coffee',
-        filter: {
+        options: {
             singleOrigin: false,
             outdoorSeating: true,
         },
@@ -37,7 +37,7 @@ export const PLACES = [
     },
     { 
         type: 'coffee',
-        filter: {
+        options: {
             singleOrigin: false,
             outdoorSeating: false,
         },
@@ -49,7 +49,7 @@ export const PLACES = [
     },
     { 
         type: 'coffee',
-        filter: {
+        options: {
             singleOrigin: false,
             outdoorSeating: false,
         },
@@ -61,7 +61,7 @@ export const PLACES = [
     },
     { 
         type: 'coffee',
-        filter: {
+        options: {
             singleOrigin: false,
             outdoorSeating: true,
         },
@@ -74,7 +74,7 @@ export const PLACES = [
     { 
         type: 'beer',
         name: 'Upland Brewery',
-        filter: {
+        options: {
             nonAlcohalic: false,
             outdoorSeating: true,
         },
@@ -86,7 +86,7 @@ export const PLACES = [
     { 
         type: 'beer',
         name: 'Bloomington Brewing Company',
-        filter: {
+        options: {
             nonAlcohalic: false,
             outdoorSeating: true,
         },
@@ -98,7 +98,7 @@ export const PLACES = [
     { 
         type: 'beer',
         name: 'Switchyard Brewing Company',
-        filter: {
+        options: {
             nonAlcohalic: false,
             outdoorSeating: true,
         },
@@ -110,7 +110,7 @@ export const PLACES = [
     { 
         type: 'beer',
         name: 'Function Brewing',
-        filter: {
+        options: {
             nonAlcohalic: false,
             outdoorSeating: true,
         },
@@ -122,7 +122,7 @@ export const PLACES = [
     { 
         type: 'beer',
         name: 'The Tap',
-        filter: {
+        options: {
             nonAlcohalic: true,
             outdoorSeating: true,
         },

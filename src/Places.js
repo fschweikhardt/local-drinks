@@ -1,8 +1,10 @@
 export const PLACES = [
     { 
         type: 'coffee',
-        singleOrigin: true,
-        outdoorSeating: false,
+        filter: {
+            singleOrigin: true,
+            outdoorSeating: false,
+        },
         name: 'Hopscotch - Southside',
         location: {
             lat: 39.157400,
@@ -11,8 +13,10 @@ export const PLACES = [
     },
     { 
         type: 'coffee',
-        singleOrigin: true,
-        outdoorSeating: true,
+        filter: {
+            singleOrigin: true,
+            outdoorSeating: true,
+        },
         name: 'Soma - Downtown',
         location: {
             lat: 39.166260,
@@ -21,8 +25,10 @@ export const PLACES = [
     },
     { 
         type: 'coffee',
-        singleOrigin: false,
-        outdoorSeating: true,
+        filter: {
+            singleOrigin: false,
+            outdoorSeating: true,
+        },
         name: 'Needmore Coffee Roasters',
         location: {
             lat: 39.167210,
@@ -31,8 +37,10 @@ export const PLACES = [
     },
     { 
         type: 'coffee',
-        singleOrigin: false,
-        outdoorSeating: false,
+        filter: {
+            singleOrigin: false,
+            outdoorSeating: false,
+        },
         name: 'Crumble Coffee and Bakery - Downtown',
         location: {
             lat: 39.171440,
@@ -41,8 +49,10 @@ export const PLACES = [
     },
     { 
         type: 'coffee',
-        singleOrigin: false,
-        outdoorSeating: false,
+        filter: {
+            singleOrigin: false,
+            outdoorSeating: false,
+        },
         name: 'Brilliant Coffee Company',
         location: {
             lat: 39.167300,
@@ -51,8 +61,10 @@ export const PLACES = [
     },
     { 
         type: 'coffee',
-        singleOrigin: false,
-        outdoorSeating: true,
+        filter: {
+            singleOrigin: false,
+            outdoorSeating: true,
+        },
         name: 'Inkwell Bakery and Cafe',
         location: {
             lat: 39.166850,
@@ -62,6 +74,10 @@ export const PLACES = [
     { 
         type: 'beer',
         name: 'Upland Brewery',
+        filter: {
+            nonAlcohalic: false,
+            outdoorSeating: true,
+        },
         location: {
             lat: 39.173531,
             lng: -86.537422
@@ -70,6 +86,10 @@ export const PLACES = [
     { 
         type: 'beer',
         name: 'Bloomington Brewing Company',
+        filter: {
+            nonAlcohalic: false,
+            outdoorSeating: true,
+        },
         location: {
             lat: 39.166270,
             lng: -86.527590
@@ -78,6 +98,10 @@ export const PLACES = [
     { 
         type: 'beer',
         name: 'Switchyard Brewing Company',
+        filter: {
+            nonAlcohalic: false,
+            outdoorSeating: true,
+        },
         location: {
             lat: 39.170139,
             lng: -86.533951
@@ -86,6 +110,10 @@ export const PLACES = [
     { 
         type: 'beer',
         name: 'Function Brewing',
+        filter: {
+            nonAlcohalic: false,
+            outdoorSeating: true,
+        },
         location: {
             lat: 39.167370,
             lng: -86.533060
@@ -94,6 +122,10 @@ export const PLACES = [
     { 
         type: 'beer',
         name: 'The Tap',
+        filter: {
+            nonAlcohalic: true,
+            outdoorSeating: true,
+        },
         location: {
             lat: 39.166771,
             lng: -86.535233

@@ -63,22 +63,22 @@ export default function DrinksMap() {
     //-----<
     
     const filterForm = 
-            <div>
-                <form onClick={setFilter}>
-                    <h3>{place.type}</h3>
-                    <label htmlFor={place.type}>
-                        {place.filters}
-                        <input type='checkbox' value={place.filter.kind} />
-                    </label>
-                    <br />
-                </form>
-                <button
-                        type='reset'
-                        onClick={()=>changeDrink(`${drinkType}`)}>
-                        RESET
-                </button>
+        <div>
+            <form onClick={setFilter}>
+                <h3>{place.type} filter</h3>
+                <label htmlFor={place.type}>
+                    {place.filter.map()}
+                    <input type='checkbox' value={`${Object.keys(place.filter)}`} />
+                </label>
                 <br />
-            </div>
+            </form>
+            <button
+                    type='reset'
+                    onClick={()=>changeDrink(`${drinkType}`)}>
+                    RESET
+            </button>
+            <br />
+        </div>
 
     //markers for selected locations on the map
     const domplacesDisplay = placesDisplay.map( place => {
@@ -113,7 +113,7 @@ export default function DrinksMap() {
             </form>
             <br />
 
-            {drinkType === 'coffee' ? filterForm : null}
+            {drinkType ? filterForm : null}
 
             <LoadScript
                 googleMapsApiKey={config.MAPS_KEY}

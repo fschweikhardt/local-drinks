@@ -7,45 +7,42 @@ import { PLACES } from './Places'
 export default function DrinksMap() {
 
     const [ drinkType, setDrinkType ] = useState('')
-    const [ placesDisplay, setplacesDisplay ] = useState([])
-    // const [ filterObj, setFilterObj ] = useState({})
+    const [ placesDisplay, setPlacesDisplay ] = useState([])
     const [ selectedMarker, setSelectedMarker ] = useState({})
 
-    const changeDrink = e => {
+    const changeDrink = e => {  
         setDrinkType(e)
         let updatedPlaces = PLACES.filter( place => {
             return place.type === e ? place : null
         })
-        setplacesDisplay(updatedPlaces)
+        setPlacesDisplay(updatedPlaces)
     }
 
     const setFilter = e => {
-        console.log(e.target.value,':', e.target.checked)
-
         const value = e.target.value
         const checked = e.target.checked
 
         let filterOptions = {
-            singleOrigin: false,
-            outdoorSeating: false, 
-            nonAlcohalic: false,
+            singleOrigin: '',
+            outdoorSeating: '', 
+            nonAlcohalic: '',
         }
 
         const changeFilterOptions = Object.assign({}, filterOptions, { [value]: checked})
-        // console.log(filterOptions)
-        console.log(changeFilterOptions)
+       
+        console.log('filterOptions', changeFilterOptions)
+        console.log('placesDisplay', placesDisplay)
 
-        // handleInputChange = (e, index) => {
-        //     const value = e.target.value;
-        //     const name = e.target.name;
-        //     const tasks = this.state.tasks;
-        //     const updatedTask = Object.assign({}, tasks[index], { [name]: value });
+        const withFilters = placesDisplay.filter( place => { 
+            console.log(place.options, 'keys', Object.keys(place.options), 'values', Object.values(place.options))
+            //if the index of Object.values(place.options) === true 
+            //return the Object.keys of the same index
+            return Object.values(place.options) === true ? Object.keys(place.options) : 'nothing'
+        })
+        console.log('withFilters', withFilters)
+        // setPlacesDisplay(withFilters)
+
         
-        //     this.setState({
-        //       tasks: Object.assign({}, tasks, { [index]: updatedTask })
-        //     });
-        //   }
-
         // changeDrink('coffee')
         // console.log(e.target.value, e.target.checked)
         // console.log('drinks selected', placesDisplay)
@@ -54,20 +51,20 @@ export default function DrinksMap() {
         //                 return place.singleOrigin === true ? place : null
         //         })
         //         // console.log(filteredPlace)
-        //         setplacesDisplay(filteredPlace)
+        //         setPlacesDisplay(filteredPlace)
         //     }  
         // if (e.target.value === 'outdoorSeating' && e.target.checked) {
         //     let filteredPlace = placesDisplay.filter( place => {
         //                 return place.outdoorSeating === true ? place : null
         //         })
         //         // console.log(filteredPlace)
-        //         setplacesDisplay(filteredPlace)
+        //         setPlacesDisplay(filteredPlace)
         //     } 
         // if (e.target.value === 'singleOrigin' && e.target.checked && e.target.value === 'outdoorSeating' && e.target.checked) {
         //     changeDrink('coffee')
         // }
         // console.log(filteredPlace)
-        // setplacesDisplay(filteredPlace)
+        // setPlacesDisplay(filteredPlace)
         
     }
 
@@ -86,7 +83,6 @@ export default function DrinksMap() {
         lng: -86.528757
     }
     //-----<
-    console.log(placesDisplay)
 
     const filterForm = 
         <div>

@@ -20,7 +20,31 @@ export default function DrinksMap() {
     }
 
     const setFilter = e => {
-        console.log(e.target.value, e.target.check)
+        console.log(e.target.value,':', e.target.checked)
+
+        const value = e.target.value
+        const checked = e.target.checked
+
+        let filterOptions = {
+            singleOrigin: false,
+            outdoorSeating: false, 
+            nonAlcohalic: false,
+        }
+
+        const changeFilterOptions = Object.assign({}, filterOptions, { [value]: checked})
+        // console.log(filterOptions)
+        console.log(changeFilterOptions)
+
+        // handleInputChange = (e, index) => {
+        //     const value = e.target.value;
+        //     const name = e.target.name;
+        //     const tasks = this.state.tasks;
+        //     const updatedTask = Object.assign({}, tasks[index], { [name]: value });
+        
+        //     this.setState({
+        //       tasks: Object.assign({}, tasks, { [index]: updatedTask })
+        //     });
+        //   }
 
         // changeDrink('coffee')
         // console.log(e.target.value, e.target.checked)
@@ -66,26 +90,28 @@ export default function DrinksMap() {
 
     const filterForm = 
         <div>
-            <form onClick={setFilter}>
+            <form onChange={setFilter}>
                 <h3>{drinkType} filter</h3>
                     {placesDisplay.map( (place, i) => {
                         return (
-                            <label htmlFor={place.name} key={i}>
-                                {Object.keys(place.options).map( option => {
+                            <label 
+                                key={i+place} 
+                                htmlFor={place.name}
+                            >
+                                {Object.keys(place.options).map( (option, j) => {
                                     return (
                                         <>
-                                        {option}
                                         <input 
-                                            key={i}
+                                            key={j+option}
                                             type='checkbox' 
-                                            value={`${option}`
-                                        }/>
+                                            value={option}
+                                        />
+                                        {option}
                                         </>
-                                        )
+                                    )
                                 })}
-                                
                             </label>
-                            )
+                        )
                     })}
                 <br />
                 <button

@@ -37,12 +37,12 @@ export default function DrinksMap() {
             console.log(place.options, 'keys', Object.keys(place.options), 'values', Object.values(place.options))
             //if the index of Object.values(place.options) === true 
             //return the Object.keys of the same index
-            return Object.values(place.options) === true ? Object.keys(place.options) : 'nothing'
+            return null
         })
         console.log('withFilters', withFilters)
         // setPlacesDisplay(withFilters)
 
-        
+
         // changeDrink('coffee')
         // console.log(e.target.value, e.target.checked)
         // console.log('drinks selected', placesDisplay)
@@ -90,7 +90,7 @@ export default function DrinksMap() {
                 <h3>{drinkType} filter</h3>
                     {placesDisplay.map( (place, i) => {
                         return (
-                            <label 
+                            <>[...new Set(<label 
                                 key={i+place} 
                                 htmlFor={place.name}
                             >
@@ -107,6 +107,8 @@ export default function DrinksMap() {
                                     )
                                 })}
                             </label>
+                            )]
+                            </>
                         )
                     })}
                 <br />

@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api'
 import config from './config';
-import { PLACES } from './Places'
+import { STORE } from './Store'
 
 export default function DrinksMap() {
 
@@ -12,34 +12,36 @@ export default function DrinksMap() {
 
     const changeDrink = e => {  
         setDrinkType(e)
-        let updatedPlaces = PLACES.filter( place => {
+        let updatedPlaces = STORE.configPlaces.filter( place => {
             return place.type === e ? place : null
         })
         setPlacesDisplay(updatedPlaces)
     }
 
     const setFilter = e => {
-        const value = e.target.value
-        const checked = e.target.checked
 
-        let filterOptions = {
-            singleOrigin: '',
-            outdoorSeating: '', 
-            nonAlcohalic: '',
-        }
 
-        const changeFilterOptions = Object.assign({}, filterOptions, { [value]: checked})
+        // const value = e.target.value
+        // const checked = e.target.checked
+
+        // let filterOptions = {
+        //     singleOrigin: '',
+        //     outdoorSeating: '', 
+        //     nonAlcohalic: '',
+        // }
+
+        // const changeFilterOptions = Object.assign({}, filterOptions, { [value]: checked})
        
-        console.log('changeFilterOptions', changeFilterOptions)
-        console.log('placesDisplay', placesDisplay)
+        // console.log('changeFilterOptions', changeFilterOptions)
+        // console.log('placesDisplay', placesDisplay)
 
-        const withFilters = placesDisplay.filter( place => { 
-            console.log(place.options)
+        // const withFilters = placesDisplay.filter( place => { 
+        //     console.log(place.options)
             //if the index of Object.values(place.options) === true 
             //return the Object.keys of the same index
-            return null
-        })
-        console.log('withFilters', withFilters)
+            // return null
+        // })
+        // console.log('withFilters', withFilters)
         // setPlacesDisplay(withFilters)
 
     }
@@ -64,28 +66,28 @@ export default function DrinksMap() {
         <div>
             <form onChange={setFilter}>
                 <h3>{drinkType} filter</h3>
-                    {placesDisplay.map( (place, i) => {
-                        return (
-                            <>[...new Set(<label 
-                                key={i+place} 
-                                htmlFor={place.name}
-                            >
-                                {Object.keys(place.options).map( (option, j) => {
-                                    return (
-                                        <>
-                                        <input 
-                                            key={j+option}
-                                            type='checkbox' 
-                                            value={option}
-                                        />
-                                        {option}
-                                        </>
-                                    )
-                                })}
-                            </label>
-                            )]
-                            </>
-                        )
+                    {STORE.configOptions[`${'drinkType'}`].map( (place, i) => {
+                        console.log(place,i) 
+                        return null
+                        // return (
+                        //     <label 
+                        //         key={i+place} 
+                        //         htmlFor={place.name}
+                        //     >
+                        //         {Object.keys(place.options).map( (option, j) => {
+                        //             return (
+                        //                 <>
+                        //                 <input 
+                        //                     key={j+option}
+                        //                     type='checkbox' 
+                        //                     value={option}
+                        //                 />
+                        //                 {option}
+                        //                 </>
+                        //             )
+                        //         })}
+                        //     </label>
+                        //)
                     })}
                 <br />
                 <button

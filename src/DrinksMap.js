@@ -30,11 +30,11 @@ export default function DrinksMap() {
 
         const changeFilterOptions = Object.assign({}, filterOptions, { [value]: checked})
        
-        console.log('filterOptions', changeFilterOptions)
+        console.log('changeFilterOptions', changeFilterOptions)
         console.log('placesDisplay', placesDisplay)
 
         const withFilters = placesDisplay.filter( place => { 
-            console.log(place.options, 'keys', Object.keys(place.options), 'values', Object.values(place.options))
+            console.log(place.options)
             //if the index of Object.values(place.options) === true 
             //return the Object.keys of the same index
             return null
@@ -42,30 +42,6 @@ export default function DrinksMap() {
         console.log('withFilters', withFilters)
         // setPlacesDisplay(withFilters)
 
-
-        // changeDrink('coffee')
-        // console.log(e.target.value, e.target.checked)
-        // console.log('drinks selected', placesDisplay)
-        // if (e.target.value === 'singleOrigin' && e.target.checked) {
-        //     let filteredPlace = placesDisplay.filter( place => {
-        //                 return place.singleOrigin === true ? place : null
-        //         })
-        //         // console.log(filteredPlace)
-        //         setPlacesDisplay(filteredPlace)
-        //     }  
-        // if (e.target.value === 'outdoorSeating' && e.target.checked) {
-        //     let filteredPlace = placesDisplay.filter( place => {
-        //                 return place.outdoorSeating === true ? place : null
-        //         })
-        //         // console.log(filteredPlace)
-        //         setPlacesDisplay(filteredPlace)
-        //     } 
-        // if (e.target.value === 'singleOrigin' && e.target.checked && e.target.value === 'outdoorSeating' && e.target.checked) {
-        //     changeDrink('coffee')
-        // }
-        // console.log(filteredPlace)
-        // setPlacesDisplay(filteredPlace)
-        
     }
 
     //----> boring stuff

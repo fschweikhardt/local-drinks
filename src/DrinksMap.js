@@ -26,7 +26,7 @@ export default function DrinksMap() {
         filterPlaces[e.target.value] = e.target.checked
         setFilterPlaces(filterPlaces)
 
-        // console.log(filterPlaces)
+        
         const withFilters = []
         if (Object.values(filterPlaces).includes(true)) {
             placesDisplay.map( place => {
@@ -39,8 +39,20 @@ export default function DrinksMap() {
                 })
             }) 
         } 
-
+        console.log(filterPlaces)
+        console.log(placesDisplay)  
+        console.log(withFilters)
         setPlacesDisplay(withFilters)
+        
+        if (!Object.values(filterPlaces).includes(true)) {
+            console.log('filter does not include true')
+            delete filterPlaces.singleOrigin
+            delete filterPlaces.outdoorSeating
+            console.log(drinkType)
+            return changeDrink(drinkType)
+        }
+
+        
 
     }
 

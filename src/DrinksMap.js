@@ -1,10 +1,9 @@
 import React from 'react'
-import { isEqual, has } from 'lodash';
+import { isEqual, has, hasIn } from 'lodash';
 import { useState } from 'react'
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api'
 import config from './config';
 import { STORE } from './Store'
-import { filter } from 'minimatch';
 
 export default function DrinksMap() {
 
@@ -25,43 +24,37 @@ export default function DrinksMap() {
         const { value } = e.target
         const { checked } = e.target
         
-        console.log(value, checked)
-        
+        // console.log(value, checked)
+
+        if (!checked) {
+            delete filterPlaces[value]
+            if (!Object.values(filterPlaces).includes(true)) {
+                return changeDrink(drinkType)
+            }
+        }
+
         filterPlaces[value] = checked
         setFilterPlaces(filterPlaces)
+        // console.log(filterPlaces)
 
-        // const obj = {[value]: checked}
-        // const bFilteredPlaces = {...filterPlaces(Boolean)}
-
-        if (checked.toString() === 'false') {
-            console.log('when something is unclicked')
-            console.log(filterPlaces[value])
-            delete filterPlaces[value]
-            //rerun the obj against the filters
-        }
-
-        const withFilters = []
+        let withFilters = []
         if (Object.values(filterPlaces).includes(true)) {
             placesDisplay.map( place => {
-                return place.options.map( option => {
-                    if (isEqual(option, filterPlaces)) {
+                return place.options.map( (option, i) => {
+                    if (isEqual(filterPlaces, option)) {
                         return withFilters.push(place)
-                    } return null
+                    }
+                    return null
                 })
             }) 
-        } 
+            // console.log(filterPlaces[Object.keys(filterPlaces)])
+        }         
+        // console.log(withFilters)
         setPlacesDisplay(withFilters)
-        
-        if (!Object.values(filterPlaces).includes(true)) {
-            // console.log('no filters')
-            delete filterPlaces.singleOrigin
-            delete filterPlaces.outdoorSeating
-            return changeDrink(drinkType)
-        }
-
-        console.log(filterPlaces)
-
+        withFilters = []
+        // console.log(filterPlaces)
     }
+
 
     //----> boring stuff
     const onSelectMarker = item => {
@@ -84,10 +77,10 @@ export default function DrinksMap() {
             <form onChange={setFilter}>
                 <h3>{drinkType} filter</h3>
                 {/* select Object.keys(STORE.configOptions) === drinktype) */}
-                    {(Object.values(STORE.configOptions['coffee'])).map( option => {
+                    {(Object.values(STORE.configOptions['coffee'])).map( (option,i) => {
                          return (
                              <label 
-                                key={option} 
+                                key={option+i} 
                                 htmlFor={option}
                             >
                                 {option}

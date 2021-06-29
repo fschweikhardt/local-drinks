@@ -16,7 +16,7 @@ export const STORE = {
             location: {
                 lat: 39.157400,
                 lng: -86.536230
-        }
+            }
         },
         { 
             type: 'coffee',
@@ -28,7 +28,7 @@ export const STORE = {
             location: {
                 lat: 39.166260,
                 lng: -86.530083
-        }
+            }
         },
         { 
             type: 'coffee',
@@ -40,7 +40,7 @@ export const STORE = {
             location: {
                 lat: 39.167210,
                 lng: -86.494560
-        }
+            }
         },
         { 
             type: 'coffee',
@@ -52,7 +52,7 @@ export const STORE = {
             location: {
                 lat: 39.171440,
                 lng: -86.534592
-        }
+            }
         },
         { 
             type: 'coffee',
@@ -64,7 +64,7 @@ export const STORE = {
             location: {
                 lat: 39.167300,
                 lng: -86.535750
-        }
+            }
         },
         { 
             type: 'coffee',
@@ -76,7 +76,7 @@ export const STORE = {
             location: {
                 lat: 39.166850,
                 lng: -86.535250
-        }
+            }
         },
         { 
             type: 'beer',

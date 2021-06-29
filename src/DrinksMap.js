@@ -10,7 +10,7 @@ export default function DrinksMap() {
     const [ placesDisplay, setPlacesDisplay ] = useState([])
     const [ selectedMarker, setSelectedMarker ] = useState({})
 
-    const changeDrink = e => {  
+    const changeDrink = e => {
         setDrinkType(e)
         let updatedPlaces = STORE.configPlaces.filter( place => {
             return place.type === e ? place : null
@@ -19,7 +19,7 @@ export default function DrinksMap() {
     }
 
     const setFilter = e => {
-
+        console.log(e.target.value, e.target.checked)
 
         // const value = e.target.value
         // const checked = e.target.checked
@@ -62,33 +62,29 @@ export default function DrinksMap() {
     }
     //-----<
 
+    console.log(drinkType)
+
     const filterForm = 
         <div>
             <form onChange={setFilter}>
                 <h3>{drinkType} filter</h3>
-                    {STORE.configOptions[`${'drinkType'}`].map( (place, i) => {
-                        console.log(place,i) 
-                        return null
-                        // return (
-                        //     <label 
-                        //         key={i+place} 
-                        //         htmlFor={place.name}
-                        //     >
-                        //         {Object.keys(place.options).map( (option, j) => {
-                        //             return (
-                        //                 <>
-                        //                 <input 
-                        //                     key={j+option}
-                        //                     type='checkbox' 
-                        //                     value={option}
-                        //                 />
-                        //                 {option}
-                        //                 </>
-                        //             )
-                        //         })}
-                        //     </label>
-                        //)
+                {/* select Object.keys(STORE.configOptions) === drinktype) */}
+                    {(Object.values(STORE.configOptions['coffee'])).map( option => {
+                         return (
+                             <label 
+                                key={option} 
+                                htmlFor={option}
+                            >
+                                {option}
+                                <input
+                                    type="checkbox"
+                                    name={option}
+                                    value={option}
+                                />
+                            </label>
+                        )
                     })}
+                <br />
                 <br />
                 <button
                     type='reset'
@@ -121,7 +117,7 @@ export default function DrinksMap() {
             <hr />
             <br />
             <h3>pick your drink type</h3>
-            <form onChange={(e)=>changeDrink(e.target.value)}>
+            <form id='drinks' onChange={(e)=>changeDrink(e.target.value)}>
                 <label htmlFor='drinks'>
                     coffee
                     <input type='radio' name='drinks' value='coffee'/>

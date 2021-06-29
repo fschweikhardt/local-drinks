@@ -8,6 +8,7 @@ export default function DrinksMap() {
 
     const [ drinkType, setDrinkType ] = useState('')
     const [ placesDisplay, setPlacesDisplay ] = useState([])
+    const [ filterPlaces, setFilterPlaces ] = useState({})
     const [ selectedMarker, setSelectedMarker ] = useState({})
 
     const changeDrink = e => {
@@ -21,17 +22,15 @@ export default function DrinksMap() {
     const setFilter = e => {
         console.log(e.target.value, e.target.checked)
 
-        // const value = e.target.value
-        // const checked = e.target.checked
-
-        // let filterOptions = {
-        //     singleOrigin: '',
-        //     outdoorSeating: '', 
-        //     nonAlcohalic: '',
-        // }
+        const value = e.target.value
+        const checked = e.target.checked
+        filterPlaces[value] = checked
+        setFilterPlaces(filterPlaces)
+        console.log(filterPlaces)
 
         // const changeFilterOptions = Object.assign({}, filterOptions, { [value]: checked})
-       
+
+        // console.log('filterOptions', filterOptions)
         // console.log('changeFilterOptions', changeFilterOptions)
         // console.log('placesDisplay', placesDisplay)
 
@@ -61,8 +60,6 @@ export default function DrinksMap() {
         lng: -86.528757
     }
     //-----<
-
-    console.log(drinkType)
 
     const filterForm = 
         <div>

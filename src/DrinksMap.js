@@ -1,9 +1,10 @@
 import React from 'react'
-import { isEqual } from 'lodash';
+import { isEqual, has } from 'lodash';
 import { useState } from 'react'
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api'
 import config from './config';
 import { STORE } from './Store'
+import { filter } from 'minimatch';
 
 export default function DrinksMap() {
 
@@ -21,38 +22,44 @@ export default function DrinksMap() {
     }
 
     const setFilter = e => {
-        console.log(e.target.value, e.target.checked)
-
-        filterPlaces[e.target.value] = e.target.checked
+        const { value } = e.target
+        const { checked } = e.target
+        
+        console.log(value, checked)
+        
+        filterPlaces[value] = checked
         setFilterPlaces(filterPlaces)
 
-        
+        // const obj = {[value]: checked}
+        // const bFilteredPlaces = {...filterPlaces(Boolean)}
+
+        if (checked.toString() === 'false') {
+            console.log('when something is unclicked')
+            console.log(filterPlaces[value])
+            delete filterPlaces[value]
+            //rerun the obj against the filters
+        }
+
         const withFilters = []
         if (Object.values(filterPlaces).includes(true)) {
             placesDisplay.map( place => {
                 return place.options.map( option => {
-                    // console.log(filterPlaces)
-                    // console.log(option)
                     if (isEqual(option, filterPlaces)) {
                         return withFilters.push(place)
                     } return null
                 })
             }) 
         } 
-        console.log(filterPlaces)
-        console.log(placesDisplay)  
-        console.log(withFilters)
         setPlacesDisplay(withFilters)
         
         if (!Object.values(filterPlaces).includes(true)) {
-            console.log('filter does not include true')
+            // console.log('no filters')
             delete filterPlaces.singleOrigin
             delete filterPlaces.outdoorSeating
-            console.log(drinkType)
             return changeDrink(drinkType)
         }
 
-        
+        console.log(filterPlaces)
 
     }
 

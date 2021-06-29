@@ -1,5 +1,5 @@
 import React from 'react'
-import { isEqual, has, hasIn } from 'lodash';
+import { isEqual } from 'lodash';
 import { useState } from 'react'
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api'
 import config from './config';
@@ -13,6 +13,8 @@ export default function DrinksMap() {
     const [ selectedMarker, setSelectedMarker ] = useState({})
 
     const changeDrink = e => {
+        setFilterPlaces({})
+        console.log('at changeDrink', filterPlaces)
         setDrinkType(e)
         let updatedPlaces = STORE.configPlaces.filter( place => {
             return place.type === e ? place : null
@@ -27,20 +29,24 @@ export default function DrinksMap() {
         // console.log(value, checked)
 
         if (!checked) {
-            delete filterPlaces[value]
+            delete filterPlaces[value]  
+            console.log(filterPlaces)
             if (!Object.values(filterPlaces).includes(true)) {
                 return changeDrink(drinkType)
-            }
+            } 
+            else return null
         }
 
         filterPlaces[value] = checked
         setFilterPlaces(filterPlaces)
-        // console.log(filterPlaces)
+        console.log(filterPlaces)
 
         let withFilters = []
         if (Object.values(filterPlaces).includes(true)) {
+            // console.log(STORE.configPlaces)
             placesDisplay.map( place => {
                 return place.options.map( (option, i) => {
+                    // console.log(option)
                     if (isEqual(filterPlaces, option)) {
                         return withFilters.push(place)
                     }
@@ -52,7 +58,6 @@ export default function DrinksMap() {
         // console.log(withFilters)
         setPlacesDisplay(withFilters)
         withFilters = []
-        // console.log(filterPlaces)
     }
 
 

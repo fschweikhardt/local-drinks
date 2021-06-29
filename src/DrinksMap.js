@@ -22,26 +22,14 @@ export default function DrinksMap() {
     const setFilter = e => {
         console.log(e.target.value, e.target.checked)
 
-        const value = e.target.value
-        const checked = e.target.checked
-        filterPlaces[value] = checked
+        filterPlaces[e.target.value] = e.target.checked
         setFilterPlaces(filterPlaces)
+
         console.log(filterPlaces)
 
-        // const changeFilterOptions = Object.assign({}, filterOptions, { [value]: checked})
-
-        // console.log('filterOptions', filterOptions)
-        // console.log('changeFilterOptions', changeFilterOptions)
-        // console.log('placesDisplay', placesDisplay)
-
-        // const withFilters = placesDisplay.filter( place => { 
-        //     console.log(place.options)
-            //if the index of Object.values(place.options) === true 
-            //return the Object.keys of the same index
-            // return null
-        // })
-        // console.log('withFilters', withFilters)
-        // setPlacesDisplay(withFilters)
+        // if (Object.values(filterPlaces).includes(true)) {
+            
+        // }
 
     }
 

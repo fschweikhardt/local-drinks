@@ -1,4 +1,5 @@
 import React from 'react'
+import { isEqual } from 'lodash';
 import { useState } from 'react'
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api'
 import config from './config';
@@ -25,11 +26,21 @@ export default function DrinksMap() {
         filterPlaces[e.target.value] = e.target.checked
         setFilterPlaces(filterPlaces)
 
-        console.log(filterPlaces)
+        // console.log(filterPlaces)
+        const withFilters = []
+        if (Object.values(filterPlaces).includes(true)) {
+            placesDisplay.map( place => {
+                return place.options.map( option => {
+                    // console.log(filterPlaces)
+                    // console.log(option)
+                    if (isEqual(option, filterPlaces)) {
+                        return withFilters.push(place)
+                    } return null
+                })
+            }) 
+        } 
 
-        // if (Object.values(filterPlaces).includes(true)) {
-            
-        // }
+        setPlacesDisplay(withFilters)
 
     }
 

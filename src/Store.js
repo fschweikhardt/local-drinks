@@ -10,7 +10,8 @@ export const STORE = {
             type: 'coffee',
             options: {
                 singleOrigin: true,
-                roaster: true
+                roaster: true,
+                outdoorSeating: true
             },
             name: 'Hopscotch - Southside',
             location: {
@@ -21,7 +22,6 @@ export const STORE = {
         { 
             type: 'coffee',
             options: {
-                singleOrigin: true,
                 outdoorSeating: true
             },
             name: 'Soma - Downtown',

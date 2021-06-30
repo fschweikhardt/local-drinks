@@ -1,9 +1,10 @@
 import React from 'react'
-// import { isEqual } from 'lodash';
+// import { has, isEqual } from 'lodash';
 import { useState } from 'react'
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api'
 import config from './config';
 import { STORE } from './Store'
+// import { has, isEqual } from 'lodash';
 
 export default function DrinksMap() {
 
@@ -15,7 +16,7 @@ export default function DrinksMap() {
     const changeDrink = e => {
         setFilterPlaces({})
         // console.log('at changeDrink', filterPlaces)
-        setDrinkType(e)
+        setDrinkType(drinkType) || setDrinkType(e)
         let updatedPlaces = STORE.configPlaces.filter( place => {
             return place.type === e ? place : null
         })
@@ -26,58 +27,50 @@ export default function DrinksMap() {
         const { value } = e.target
         const { checked } = e.target
         let withFilters = []
-        // console.log(value, checked)
+        console.log('button clicked', value, checked)
 
         if (!checked) {
             delete filterPlaces[value]  
-            // console.log(filterPlaces)
             STORE.configPlaces.map( (place, i) => {
                 //for of loop filterPlaces to get every true filter
-                for (let filter in filterPlaces) {
-                    console.log('filter', filter, i)
-                    for (let check in place.options) {
-                        console.log('check', check, i)
-                        if (filter.toString() === check.toString()) {
-                            console.log('pushed place', i)
-                            return withFilters.push(place)
-                        } 
-                    } 
-                } return null
-                
+                return null
             })
-
             if (!Object.values(filterPlaces).includes(true)) {
                 return changeDrink(drinkType)
-            } 
-            else return null
+            }
         }
-
+        
         filterPlaces[value] = checked
         setFilterPlaces(filterPlaces)
        
-
-        
-        if (Object.values(filterPlaces)) {
-             console.log('filteredPlaces', filterPlaces)
-            STORE.configPlaces.map( (place, i) => {
-                //for of loop filterPlaces to get every true filter
+        if (checked) {
+            // eslint-disable-next-line
+            placesDisplay.map( (place, i) => {
+                // console.log(place.name, i)
                 for (let filter in filterPlaces) {
-                    console.log('filter', filter, i)
-                    for (let check in place.options) {
-                        console.log('check', check, i)
-                        if (filter.toString() === check.toString()) {
-                            console.log('pushed place', i)
+                   console.log('filter', filter.toString())
+                   for (let option in place.options) {
+                    //    console.log('option', option.toString())
+                       if (option.toString() === filter.toString()) {
+                            //    console.log('PUSHED', place.name)
                             return withFilters.push(place)
-                        } 
-                    } 
-                } return null
-                
-            }) 
-        }   
-
+                       }
+                   }
+                }
+            })
+        }  
+        let trimmed = []
+        withFilters.filter(place => {
+            for (const filter in filterPlaces) {
+                console.log(place.name, filter)
+                // return place.options[filter] ? place : null
+             }
+        })
+        setPlacesDisplay(trimmed)
         console.log(withFilters)
-        setPlacesDisplay(withFilters)
+        console.log(trimmed)
         withFilters = []
+        trimmed = []
     }
 
 
@@ -121,7 +114,7 @@ export default function DrinksMap() {
                 <br />
                 <button
                     type='reset'
-                    onClick={()=>changeDrink(`${drinkType}`)}>
+                    onClick={()=>changeDrink(drinkType)}>
                     RESET
                 </button>
             </form>
@@ -170,7 +163,7 @@ export default function DrinksMap() {
                 <GoogleMap
                     mapContainerStyle={containerStyle}
                     center={center}
-                    zoom={14}
+                    zoom={13}
                 > 
                 {placesDisplay ? domplacesDisplay : null}
 

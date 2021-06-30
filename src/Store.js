@@ -1,17 +1,17 @@
 export const STORE = {
 
     configOptions : {
-        coffee: ['singleOrigin', 'outdoorSeating'],
+        coffee: ['singleOrigin', 'outdoorSeating', 'roaster'],
         beer: ['outdoorSeating', 'nonAlcohalic']
     },
 
     configPlaces : [
         { 
             type: 'coffee',
-            options: [
-                {singleOrigin: true}, 
-                {outdoorSeating: false},
-            ],
+            options: {
+                singleOrigin: true,
+                roaster: true
+            },
             name: 'Hopscotch - Southside',
             location: {
                 lat: 39.157400,
@@ -20,10 +20,10 @@ export const STORE = {
         },
         { 
             type: 'coffee',
-            options: [
-                {singleOrigin: true},
-                {outdoorSeating: true},
-            ],
+            options: {
+                singleOrigin: true,
+                outdoorSeating: true
+            },
             name: 'Soma - Downtown',
             location: {
                 lat: 39.166260,
@@ -32,10 +32,10 @@ export const STORE = {
         },
         { 
             type: 'coffee',
-            options: [
-                {singleOrigin: false},
-                {outdoorSeating: true},
-            ],
+            options: {
+                outdoorSeating: true,
+                roaster: true
+            },
             name: 'Needmore Coffee Roasters',
             location: {
                 lat: 39.167210,
@@ -44,10 +44,7 @@ export const STORE = {
         },
         { 
             type: 'coffee',
-            options: [
-                {singleOrigin: false},
-                {outdoorSeating: false},
-            ],
+            options: {},
             name: 'Crumble Coffee and Bakery - Downtown',
             location: {
                 lat: 39.171440,
@@ -56,10 +53,7 @@ export const STORE = {
         },
         { 
             type: 'coffee',
-            options: [
-                {singleOrigin: false},
-                {outdoorSeating: false},
-            ],
+            options: {},
             name: 'Brilliant Coffee Company',
             location: {
                 lat: 39.167300,
@@ -68,10 +62,9 @@ export const STORE = {
         },
         { 
             type: 'coffee',
-            options: [
-                {singleOrigin: false},
-                {outdoorSeating: true},
-            ],
+            options: {
+                outdoorSeating: true
+            },
             name: 'Inkwell Bakery and Cafe',
             location: {
                 lat: 39.166850,

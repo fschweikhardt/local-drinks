@@ -1,5 +1,5 @@
 import React from 'react'
-import { isEqual } from 'lodash';
+// import { isEqual } from 'lodash';
 import { useState } from 'react'
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api'
 import config from './config';
@@ -14,7 +14,7 @@ export default function DrinksMap() {
 
     const changeDrink = e => {
         setFilterPlaces({})
-        console.log('at changeDrink', filterPlaces)
+        // console.log('at changeDrink', filterPlaces)
         setDrinkType(e)
         let updatedPlaces = STORE.configPlaces.filter( place => {
             return place.type === e ? place : null
@@ -30,7 +30,7 @@ export default function DrinksMap() {
 
         if (!checked) {
             delete filterPlaces[value]  
-            console.log(filterPlaces)
+            // console.log(filterPlaces)
             if (!Object.values(filterPlaces).includes(true)) {
                 return changeDrink(drinkType)
             } 
@@ -42,20 +42,17 @@ export default function DrinksMap() {
         console.log(filterPlaces)
 
         let withFilters = []
-        if (Object.values(filterPlaces).includes(true)) {
-            // console.log(STORE.configPlaces)
-            placesDisplay.map( place => {
-                return place.options.map( (option, i) => {
-                    // console.log(option)
-                    if (isEqual(filterPlaces, option)) {
-                        return withFilters.push(place)
-                    }
-                    return null
-                })
-            }) 
-            // console.log(filterPlaces[Object.keys(filterPlaces)])
-        }         
-        // console.log(withFilters)
+        if (Object.values(filterPlaces)) {
+            STORE.configPlaces.map( place => {
+                //for of loop filterPlaces to get every true filter
+                for (let filter of filterPlaces) {
+                    console.log(filter)
+                }
+                return place.options[value] ? withFilters.push(place) : null
+            })
+        }   
+
+        console.log(withFilters)
         setPlacesDisplay(withFilters)
         withFilters = []
     }

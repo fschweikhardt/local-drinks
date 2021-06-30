@@ -39,17 +39,25 @@ export default function DrinksMap() {
 
         filterPlaces[value] = checked
         setFilterPlaces(filterPlaces)
-        console.log(filterPlaces)
+       
 
         let withFilters = []
         if (Object.values(filterPlaces)) {
-            STORE.configPlaces.map( place => {
+             console.log('filteredPlaces', filterPlaces)
+            STORE.configPlaces.map( (place, i) => {
                 //for of loop filterPlaces to get every true filter
-                for (let filter of filterPlaces) {
-                    console.log(filter)
-                }
-                return place.options[value] ? withFilters.push(place) : null
-            })
+                for (let filter in filterPlaces) {
+                    console.log('filter', filter, i)
+                    for (let check in place.options) {
+                        console.log('check', check, i)
+                        if (filter.toString() === check.toString()) {
+                            console.log('pushed place', i)
+                            return withFilters.push(place)
+                        } 
+                    } 
+                } return null
+                
+            }) 
         }   
 
         console.log(withFilters)

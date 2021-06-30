@@ -30,6 +30,7 @@ export default function DrinksMap() {
         console.log('button clicked', value, checked)
 
         if (!checked) {
+
             delete filterPlaces[value]  
             STORE.configPlaces.map( (place, i) => {
                 //for of loop filterPlaces to get every true filter
@@ -43,14 +44,14 @@ export default function DrinksMap() {
         filterPlaces[value] = checked
         setFilterPlaces(filterPlaces)
        
-        if (checked) {
+        // if (checked) {
             // eslint-disable-next-line
             placesDisplay.map( (place, i) => {
-                // console.log(place.name, i)
+                console.log(place.name, i)
                 for (let filter in filterPlaces) {
                    console.log('filter', filter.toString())
                    for (let option in place.options) {
-                    //    console.log('option', option.toString())
+                       console.log('option', option.toString())
                        if (option.toString() === filter.toString()) {
                             //    console.log('PUSHED', place.name)
                             return withFilters.push(place)
@@ -58,12 +59,12 @@ export default function DrinksMap() {
                    }
                 }
             })
-        }  
+        // }  
         let trimmed = []
         withFilters.filter(place => {
             for (const filter in filterPlaces) {
                 console.log(place.name, filter)
-                // return place.options[filter] ? place : null
+                return place.options[filter] ? trimmed.push(place) : null
              }
         })
         setPlacesDisplay(trimmed)

@@ -1,4 +1,5 @@
 import React from 'react'
+import { uniq, isEqual } from 'lodash';
 import { useState } from 'react'
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api'
 import config from './config';
@@ -15,15 +16,15 @@ export default function DrinksMap() {
         
         setPlacesDisplay([])
         setFilterPlaces({})
-        console.log('at changeDrink', filterPlaces)
-        console.log('placesDisplay', placesDisplay)
+        // console.log('at changeDrink', filterPlaces)
+        // console.log('placesDisplay', placesDisplay)
         
         if (drinkType) {
             setDrinkType(drinkType)
-            console.log('preset drinkType')
+            // console.log('preset drinkType')
             } else {
                 setDrinkType(e)
-                console.log('drinkType from event')
+                // console.log('drinkType from event')
         }
 
         let updatedPlaces = STORE.configPlaces.filter( place => {
@@ -40,40 +41,44 @@ export default function DrinksMap() {
         console.log('button clicked', value, checked)
 
         if (!checked) {
+            console.log(filterPlaces)
+            delete filterPlaces[value] 
+            console.log(filterPlaces)
 
-            delete filterPlaces[value]  
             STORE.configPlaces.map( (place, i) => {
-                //for of loop filterPlaces to get every true filter
-                return null
+                for (let filter in filterPlaces) {
+                    if (place.options[filter]) {
+                        return withFilters.push(place)
+                    }
+                } 
             })
             if (!Object.values(filterPlaces).includes(true)) {
+                console.log('cleared')
                 return changeDrink(drinkType)
             }
         }
         
-        filterPlaces[value] = checked
-        setFilterPlaces(filterPlaces)
-       
         if (checked) {
-            // eslint-disable-next-line
+            filterPlaces[value] = checked
+            setFilterPlaces(filterPlaces)
             placesDisplay.map( (place, i) => {
-                // console.log(place.name, i)
                 for (let filter in filterPlaces) {
-                    // console.log('filter', filter)
-                    // console.log(place.options[filter])
                     if (place.options[filter]) {
-                        // console.log('PUSHED', place.name)
-                        withFilters.push(place)
+                        return withFilters.push(place)
                     }
                 }
             }) 
         }
+
+        console.log(filterPlaces)
+
         console.log(withFilters)
-        removeDuplicates = [...new Set(withFilters)]
+        removeDuplicates = uniq(withFilters)
         console.log(removeDuplicates)
         removeDuplicates.map( (place, i)=> {
+            console.log('mapping duplicates')
             for (const filter in filterPlaces) {
-                // console.log(i, place.name, place.options[filter])
+                console.log(filter, place.name, place.options[filter], i)
                 if (!place.options[filter]) {
                     removeDuplicates.splice(i, 1)
                 }

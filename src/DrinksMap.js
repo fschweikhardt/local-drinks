@@ -1,10 +1,8 @@
 import React from 'react'
-// import { has, isEqual } from 'lodash';
 import { useState } from 'react'
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api'
 import config from './config';
 import { STORE } from './Store'
-// import { has, isEqual } from 'lodash';
 
 export default function DrinksMap() {
 
@@ -14,9 +12,20 @@ export default function DrinksMap() {
     const [ selectedMarker, setSelectedMarker ] = useState({})
 
     const changeDrink = e => {
+        
+        setPlacesDisplay([])
         setFilterPlaces({})
-        // console.log('at changeDrink', filterPlaces)
-        setDrinkType(drinkType) || setDrinkType(e)
+        console.log('at changeDrink', filterPlaces)
+        console.log('placesDisplay', placesDisplay)
+        
+        if (drinkType) {
+            setDrinkType(drinkType)
+            console.log('preset drinkType')
+            } else {
+                setDrinkType(e)
+                console.log('drinkType from event')
+        }
+
         let updatedPlaces = STORE.configPlaces.filter( place => {
             return place.type === e ? place : null
         })
@@ -27,6 +36,7 @@ export default function DrinksMap() {
         const { value } = e.target
         const { checked } = e.target
         let withFilters = []
+        let removeDuplicates = []
         console.log('button clicked', value, checked)
 
         if (!checked) {
@@ -44,34 +54,36 @@ export default function DrinksMap() {
         filterPlaces[value] = checked
         setFilterPlaces(filterPlaces)
        
-        // if (checked) {
+        if (checked) {
             // eslint-disable-next-line
             placesDisplay.map( (place, i) => {
-                console.log(place.name, i)
+                // console.log(place.name, i)
                 for (let filter in filterPlaces) {
-                   console.log('filter', filter.toString())
-                   for (let option in place.options) {
-                       console.log('option', option.toString())
-                       if (option.toString() === filter.toString()) {
-                            //    console.log('PUSHED', place.name)
-                            return withFilters.push(place)
-                       }
-                   }
+                    // console.log('filter', filter)
+                    // console.log(place.options[filter])
+                    if (place.options[filter]) {
+                        // console.log('PUSHED', place.name)
+                        withFilters.push(place)
+                    }
                 }
-            })
-        // }  
-        let trimmed = []
-        withFilters.filter(place => {
+            }) 
+        }
+        console.log(withFilters)
+        removeDuplicates = [...new Set(withFilters)]
+        console.log(removeDuplicates)
+        removeDuplicates.map( (place, i)=> {
             for (const filter in filterPlaces) {
-                console.log(place.name, filter)
-                return place.options[filter] ? trimmed.push(place) : null
+                // console.log(i, place.name, place.options[filter])
+                if (!place.options[filter]) {
+                    removeDuplicates.splice(i, 1)
+                }
              }
         })
-        setPlacesDisplay(trimmed)
-        console.log(withFilters)
-        console.log(trimmed)
+
+        setPlacesDisplay(removeDuplicates)
+        console.log(removeDuplicates)
         withFilters = []
-        trimmed = []
+        removeDuplicates = []
     }
 
 

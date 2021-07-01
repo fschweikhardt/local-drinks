@@ -44,7 +44,7 @@ export default function DrinksMap() {
             // console.log(filterPlaces)
             delete filterPlaces[value] 
             // console.log(filterPlaces)
-
+            // eslint-disable-next-line
             STORE.configPlaces.map( (place, i) => {
                 for (let filter in filterPlaces) {
                     if (place.options[filter]) {
@@ -61,6 +61,7 @@ export default function DrinksMap() {
         if (checked) {
             filterPlaces[value] = checked
             setFilterPlaces(filterPlaces)
+            // eslint-disable-next-line
             placesDisplay.map( (place, i) => {
                 for (let filter in filterPlaces) {
                     if (place.options[filter]) {
@@ -75,6 +76,7 @@ export default function DrinksMap() {
         // console.log(withFilters)
         removeDuplicates = uniq(withFilters)
         // console.log(removeDuplicates)
+        // eslint-disable-next-line
         removeDuplicates.map( (place, i)=> {
             // console.log('mapping duplicates')
             for (const filter in filterPlaces) {

@@ -16,15 +16,15 @@ export default function DrinksMap() {
         
         setPlacesDisplay([])
         setFilterPlaces({})
-        // console.log('at changeDrink', filterPlaces)
-        // console.log('placesDisplay', placesDisplay)
+        console.log('filters at changeDrink', filterPlaces)
+        console.log('places at changeDrink', placesDisplay)
         
         if (drinkType) {
             setDrinkType(drinkType)
-            // console.log('preset drinkType')
+            console.log('preset drinkType')
             } else {
                 setDrinkType(e)
-                // console.log('drinkType from event')
+                console.log('drinkType from event')
         }
 
         let updatedPlaces = STORE.configPlaces.filter( place => {
@@ -38,12 +38,12 @@ export default function DrinksMap() {
         const { checked } = e.target
         let withFilters = []
         let removeDuplicates = []
-        console.log('button clicked', value, checked)
+        // console.log(filterPlaces)
 
         if (!checked) {
-            console.log(filterPlaces)
+            // console.log(filterPlaces)
             delete filterPlaces[value] 
-            console.log(filterPlaces)
+            // console.log(filterPlaces)
 
             STORE.configPlaces.map( (place, i) => {
                 for (let filter in filterPlaces) {
@@ -70,15 +70,15 @@ export default function DrinksMap() {
             }) 
         }
 
-        console.log(filterPlaces)
+        // console.log(filterPlaces)
 
-        console.log(withFilters)
+        // console.log(withFilters)
         removeDuplicates = uniq(withFilters)
-        console.log(removeDuplicates)
+        // console.log(removeDuplicates)
         removeDuplicates.map( (place, i)=> {
-            console.log('mapping duplicates')
+            // console.log('mapping duplicates')
             for (const filter in filterPlaces) {
-                console.log(filter, place.name, place.options[filter], i)
+                // console.log(filter, place.name, place.options[filter], i)
                 if (!place.options[filter]) {
                     removeDuplicates.splice(i, 1)
                 }
@@ -86,7 +86,7 @@ export default function DrinksMap() {
         })
 
         setPlacesDisplay(removeDuplicates)
-        console.log(removeDuplicates)
+        // console.log(removeDuplicates)
         withFilters = []
         removeDuplicates = []
     }

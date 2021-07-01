@@ -1,5 +1,5 @@
 import React from 'react'
-import { uniq, isEqual } from 'lodash';
+import { uniq } from 'lodash';
 import { useState } from 'react'
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api'
 import config from './config';
@@ -108,37 +108,7 @@ export default function DrinksMap() {
     }
     //-----<
 
-    const filterForm = 
-        <div>
-            <form onChange={setFilter}>
-                <h3>{drinkType} filter</h3>
-                {/* select Object.keys(STORE.configOptions) === drinktype) */}
-                    {(Object.values(STORE.configOptions['coffee'])).map( (option,i) => {
-                         return (
-                             <label 
-                                key={option+i} 
-                                htmlFor={option}
-                            >
-                                {option}
-                                <input
-                                    type="checkbox"
-                                    name={option}
-                                    value={option}
-                                />
-                            </label>
-                        )
-                    })}
-                <br />
-                <br />
-                <button
-                    type='reset'
-                    onClick={()=>changeDrink(drinkType)}>
-                    RESET
-                </button>
-            </form>
-            
-            <br />
-        </div>
+    
 
     //markers for selected locations on the map
     const domplacesDisplay = placesDisplay.map( place => {
@@ -172,8 +142,32 @@ export default function DrinksMap() {
                 </label>
             </form>
             <br />
-
-            {drinkType ? filterForm : null}
+                <form onChange={setFilter}>
+                    <h3>{drinkType} filter</h3>
+                        {STORE.configOptions[`coffee`].map( (option,i) => {
+                            return (
+                                <label 
+                                    key={option+i} 
+                                    htmlFor={option}
+                                >
+                                    {option}
+                                    <input
+                                        type="checkbox"
+                                        name={option}
+                                        value={option}
+                                    />
+                                </label>
+                            )
+                        })}
+                    <br />
+                    <br />
+                    <button
+                        type='reset'
+                        onClick={()=>changeDrink(drinkType)}>
+                        RESET
+                    </button>
+                </form>
+                <br />
 
             <LoadScript
                 googleMapsApiKey={config.MAPS_KEY}

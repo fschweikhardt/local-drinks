@@ -75,8 +75,7 @@ export const STORE = {
             type: 'beer',
             name: 'Upland Brewery',
             options: {
-                nonAlcohalic: false,
-                outdoorSeating: true,
+                nonAlcohalic: true,
             },
             location: {
                 lat: 39.173531,
@@ -87,7 +86,6 @@ export const STORE = {
             type: 'beer',
             name: 'Bloomington Brewing Company',
             options: {
-                nonAlcohalic: false,
                 outdoorSeating: true,
             },
             location: {
@@ -99,7 +97,6 @@ export const STORE = {
             type: 'beer',
             name: 'Switchyard Brewing Company',
             options: {
-                nonAlcohalic: false,
                 outdoorSeating: true,
             },
             location: {
@@ -110,10 +107,7 @@ export const STORE = {
         { 
             type: 'beer',
             name: 'Function Brewing',
-            options: {
-                nonAlcohalic: false,
-                outdoorSeating: true,
-            },
+            options: {},
             location: {
                 lat: 39.167370,
                 lng: -86.533060

@@ -13,9 +13,10 @@ export default function DrinksMap() {
     const [ selectedMarker, setSelectedMarker ] = useState({})
 
     const changeDrink = e => {
-        
+
         setPlacesDisplay([])
-        setFilterPlaces({})
+        setFilterPlaces({}) 
+        
         console.log('filters at changeDrink', filterPlaces)
         console.log('places at changeDrink', placesDisplay)
         

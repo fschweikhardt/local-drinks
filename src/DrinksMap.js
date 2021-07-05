@@ -1,6 +1,5 @@
-import React from 'react'
+import React,  { useState } from 'react'
 import { uniq } from 'lodash';
-import { useState } from 'react'
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api'
 import config from './config';
 import { STORE } from './Store'
@@ -39,7 +38,7 @@ export default function DrinksMap() {
         const { checked } = e.target
         let withFilters = []
         let removeDuplicates = []
-        console.log(withFilters)
+        // console.log(withFilters)
 
         if (!checked) {
             // console.log(filterPlaces)
@@ -54,6 +53,7 @@ export default function DrinksMap() {
             // eslint-disable-next-line
             STORE.configPlaces.map( (place, i) => {
                 for (let filter in filterPlaces) {
+                    console.log(place.options[filter])
                     if (place.options[filter]) {
                         return withFilters.push(place)
                     }
@@ -69,6 +69,7 @@ export default function DrinksMap() {
             // eslint-disable-next-line
             placesDisplay.map( (place, i) => {
                 for (let filter in filterPlaces) {
+                    console.log(place.options[filter])
                     if (place.options[filter]) {
                         return withFilters.push(place)
                     }
@@ -76,7 +77,7 @@ export default function DrinksMap() {
             }) 
         }
 
-        // console.log(filterPlaces)
+        console.log(filterPlaces)
 
         console.log(withFilters)
         removeDuplicates = uniq(withFilters)
@@ -86,6 +87,7 @@ export default function DrinksMap() {
             // console.log('mapping duplicates')
             for (const filter in filterPlaces) {
                 // console.log(filter, place.name, place.options[filter], i)
+                // console.log(Object.values(place.options[filter]))
                 if (!place.options[filter]) {
                     removeDuplicates.splice(i, 1)
                 }
@@ -93,10 +95,10 @@ export default function DrinksMap() {
         })
 
         setPlacesDisplay(removeDuplicates)
-        
+        console.log(removeDuplicates)
+
         withFilters = []
         removeDuplicates = []
-        console.log(withFilters)
     }
 
 

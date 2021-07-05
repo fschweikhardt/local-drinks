@@ -17,8 +17,8 @@ export default function DrinksMap() {
         setPlacesDisplay([])
         setFilterPlaces({}) 
         
-        console.log('filters at changeDrink', filterPlaces)
-        console.log('places at changeDrink', placesDisplay)
+        // console.log('filters at changeDrink', filterPlaces)
+        // console.log('places at changeDrink', placesDisplay)
         
         if (drinkType) {
             setDrinkType(drinkType)
@@ -39,12 +39,18 @@ export default function DrinksMap() {
         const { checked } = e.target
         let withFilters = []
         let removeDuplicates = []
-        // console.log(filterPlaces)
+        console.log(withFilters)
 
         if (!checked) {
             // console.log(filterPlaces)
-            delete filterPlaces[value] 
+            filterPlaces[value]=false
+            setFilterPlaces(filterPlaces)
             // console.log(filterPlaces)
+            
+            if (!Object.values(filterPlaces).includes(true)) {
+                console.log('cleared')
+                return changeDrink(drinkType)
+            }
             // eslint-disable-next-line
             STORE.configPlaces.map( (place, i) => {
                 for (let filter in filterPlaces) {
@@ -53,15 +59,13 @@ export default function DrinksMap() {
                     }
                 } 
             })
-            if (!Object.values(filterPlaces).includes(true)) {
-                console.log('cleared')
-                return changeDrink(drinkType)
-            }
+            
         }
         
         if (checked) {
             filterPlaces[value] = checked
             setFilterPlaces(filterPlaces)
+            // console.log(filterPlaces)
             // eslint-disable-next-line
             placesDisplay.map( (place, i) => {
                 for (let filter in filterPlaces) {
@@ -74,7 +78,7 @@ export default function DrinksMap() {
 
         // console.log(filterPlaces)
 
-        // console.log(withFilters)
+        console.log(withFilters)
         removeDuplicates = uniq(withFilters)
         // console.log(removeDuplicates)
         // eslint-disable-next-line
@@ -89,9 +93,10 @@ export default function DrinksMap() {
         })
 
         setPlacesDisplay(removeDuplicates)
-        // console.log(removeDuplicates)
+        
         withFilters = []
         removeDuplicates = []
+        console.log(withFilters)
     }
 
 

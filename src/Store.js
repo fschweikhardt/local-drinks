@@ -22,7 +22,8 @@ export const STORE = {
         { 
             type: 'coffee',
             options: {
-                'outdoor seating': true
+                'outdoor seating': true,
+                'single origin': true,
             },
             name: 'Soma - Downtown',
             location: {

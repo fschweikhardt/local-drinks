@@ -4,7 +4,7 @@ import DrinksMap from './DrinksMap';
 
 export default function App() {
   return (
-    <div style={{display: 'flex', justifyContent: 'center'}}>
+    <div style={{display: 'flex', justifyContent: 'center', margin: '0 auto'}}>
       
       <DrinksMap />
 

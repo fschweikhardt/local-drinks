@@ -71,5 +71,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 
 # TO DO
-- fix filter rendering
-- reset states
+ - move marker position slighly above the location
+ - add more filters and places
+ 

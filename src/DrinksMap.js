@@ -87,7 +87,10 @@ export default function DrinksMap() {
       setSelectedMarker(item);
     }
     
-    let mapSizing = `${window.innerWidth}` - 100
+    let mapSizing = `${window.innerWidth}` - 50
+    if (mapSizing > 500) {
+        mapSizing = 500
+    }
     const containerStyle = {
         width: mapSizing,
         height: mapSizing
@@ -118,13 +121,15 @@ export default function DrinksMap() {
                                     key={option+i} 
                                     htmlFor={option}
                                 >
-                                    {option}
                                     <input
                                         type="checkbox"
                                         name={option}
                                         value={option}
                                     />
+                                    {option}
+                                    <br />
                                 </label>
+                                
                             )
                         }) : null}
                     <br />

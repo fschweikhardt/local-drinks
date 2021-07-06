@@ -1,17 +1,17 @@
 export const STORE = {
 
     configOptions : {
-        coffee: ['singleOrigin', 'outdoorSeating', 'roaster'],
-        beer: ['outdoorSeating', 'nonAlcohalic']
+        coffee: ['single origin', 'outdoor seating', 'roaster'],
+        beer: ['outdoor seating', 'non-alcohalic']
     },
 
     configPlaces : [
         { 
             type: 'coffee',
             options: {
-                singleOrigin: true,
+                'single origin': true,
                 roaster: true,
-                outdoorSeating: true
+                'outdoor seating': true
             },
             name: 'Hopscotch - Southside',
             location: {
@@ -22,7 +22,7 @@ export const STORE = {
         { 
             type: 'coffee',
             options: {
-                outdoorSeating: true
+                'outdoor seating': true
             },
             name: 'Soma - Downtown',
             location: {
@@ -33,7 +33,7 @@ export const STORE = {
         { 
             type: 'coffee',
             options: {
-                outdoorSeating: true,
+                'outdoor seating': true,
                 roaster: true
             },
             name: 'Needmore Coffee Roasters',
@@ -63,7 +63,7 @@ export const STORE = {
         { 
             type: 'coffee',
             options: {
-                outdoorSeating: true
+                'outdoor seating': true
             },
             name: 'Inkwell Bakery and Cafe',
             location: {
@@ -75,7 +75,7 @@ export const STORE = {
             type: 'beer',
             name: 'Upland Brewery',
             options: {
-                nonAlcohalic: true,
+                'non-alcohalic': true,
             },
             location: {
                 lat: 39.173531,
@@ -86,7 +86,7 @@ export const STORE = {
             type: 'beer',
             name: 'Bloomington Brewing Company',
             options: {
-                outdoorSeating: true,
+                'outdoor seating': true,
             },
             location: {
                 lat: 39.166270,
@@ -97,7 +97,7 @@ export const STORE = {
             type: 'beer',
             name: 'Switchyard Brewing Company',
             options: {
-                outdoorSeating: true,
+                'outdoor seating': true,
             },
             location: {
                 lat: 39.170139,
@@ -117,8 +117,8 @@ export const STORE = {
             type: 'beer',
             name: 'The Tap',
             options: {
-                nonAlcohalic: true,
-                outdoorSeating: true,
+                'non-alcohalic': true,
+                'outdoor seating': true,
             },
             location: {
                 lat: 39.166771,

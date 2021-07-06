@@ -12,7 +12,6 @@ export default function DrinksMap() {
     const [ selectedMarker, setSelectedMarker ] = useState({})
 
     const changeDrink = e => {
-        console.log(drinkType)
 
         setPlacesDisplay([])
         setFilterPlaces({}) 
@@ -42,14 +41,12 @@ export default function DrinksMap() {
             setFilterPlaces(filterPlaces)
             
             if (!Object.values(filterPlaces).includes(true)) {
-                console.log('cleared')
                 return changeDrink(drinkType)
             }
             // eslint-disable-next-line
             STORE.configPlaces.map( (place, i) => {
                 for (let filter in filterPlaces) {
-                    console.log(place.options[filter])
-                    if (place.options[filter]) {
+                    if (place.type === drinkType && place.options[filter]) {
                         return withFilters.push(place)
                     }
                 } 
@@ -62,8 +59,7 @@ export default function DrinksMap() {
             // eslint-disable-next-line
             placesDisplay.map( (place, i) => {
                 for (let filter in filterPlaces) {
-                    console.log(place.options[filter])
-                    if (place.options[filter]) {
+                    if (place.type === drinkType && place.options[filter]) {
                         return withFilters.push(place)
                     }
                 }
@@ -74,7 +70,6 @@ export default function DrinksMap() {
             // eslint-disable-next-line
             removeDuplicates.map( (place, i)=> {
                 for (const filter in filterPlaces) {
-                    console.log(filter, place.name, place.options[filter], i)
                     if (!place.options[filter]) {
                         removeDuplicates.splice(i, 1)
                     }
@@ -91,10 +86,11 @@ export default function DrinksMap() {
     const onSelectMarker = item => {
       setSelectedMarker(item);
     }
-   
+    
+    let mapSizing = `${window.innerWidth}` - 100
     const containerStyle = {
-        width: '500px',
-        height: '500px'
+        width: mapSizing,
+        height: mapSizing
       };
     
       const center = {
@@ -112,8 +108,6 @@ export default function DrinksMap() {
                 onClick={()=>onSelectMarker(place)}
             />
     )})
-
-    console.log(drinkType)
 
     const domFilters =  
                 <form onChange={setFilter}>

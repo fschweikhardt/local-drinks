@@ -4,12 +4,10 @@ import DrinksMap from './DrinksMap';
 
 export default function App() {
   return (
-    <div>
-      {/* <Header /> */}
+    <div style={{display: 'flex', justifyContent: 'center'}}>
       
       <DrinksMap />
-      
-      {/* <Footer /> */}
+
     </div>
   )
 }

@@ -12,19 +12,17 @@ export default function DrinksMap() {
     const [ selectedMarker, setSelectedMarker ] = useState({})
 
     const changeDrink = e => {
+        console.log(drinkType)
 
         setPlacesDisplay([])
         setFilterPlaces({}) 
         
-        console.log('filters at changeDrink', filterPlaces)
-        console.log('places at changeDrink', placesDisplay)
-        
-        if (drinkType) {
-            setDrinkType(drinkType)
-            console.log('preset drinkType')
+        if (drinkType === e || !e) {
+            // setDrinkType(drinkType)
+            console.log(`preset drinkType - ${e}`)
             } else {
                 setDrinkType(e)
-                console.log('drinkType from event')
+                console.log(`drinkType from event - ${e}`)
         }
 
         let updatedPlaces = STORE.configPlaces.filter( place => {
@@ -55,10 +53,9 @@ export default function DrinksMap() {
                         return withFilters.push(place)
                     }
                 } 
-            })
-            
+            })    
         }
-        
+
         if (checked) {
             filterPlaces[value] = checked
             setFilterPlaces(filterPlaces)
@@ -74,15 +71,15 @@ export default function DrinksMap() {
         }
 
         removeDuplicates = uniq(withFilters)
-        // eslint-disable-next-line
-        removeDuplicates.map( (place, i)=> {
-            for (const filter in filterPlaces) {
-                console.log(filter, place.name, place.options[filter], i)
-                if (!place.options[filter]) {
-                    removeDuplicates.splice(i, 1)
+            // eslint-disable-next-line
+            removeDuplicates.map( (place, i)=> {
+                for (const filter in filterPlaces) {
+                    console.log(filter, place.name, place.options[filter], i)
+                    if (!place.options[filter]) {
+                        removeDuplicates.splice(i, 1)
+                    }
                 }
-             }
-        })
+            })
 
         setPlacesDisplay(removeDuplicates)
         withFilters = []
@@ -106,8 +103,6 @@ export default function DrinksMap() {
     }
     //-----<
 
-    
-
     //markers for selected locations on the map
     const domplacesDisplay = placesDisplay.map( place => {
         return (
@@ -117,6 +112,35 @@ export default function DrinksMap() {
                 onClick={()=>onSelectMarker(place)}
             />
     )})
+
+    console.log(drinkType)
+
+    const domFilters =  
+                <form onChange={setFilter}>
+                    <h3>{drinkType} filter</h3>
+                        { drinkType ? STORE.configOptions[drinkType].map( (option,i) => {
+                            return (
+                                <label 
+                                    key={option+i} 
+                                    htmlFor={option}
+                                >
+                                    {option}
+                                    <input
+                                        type="checkbox"
+                                        name={option}
+                                        value={option}
+                                    />
+                                </label>
+                            )
+                        }) : null}
+                    <br />
+                    <br />
+                    {/* <button
+                        type='reset'
+                        onClick={()=>changeDrink(drinkType)}>
+                        RESET
+                    </button> */}
+                </form>
 
     return (
         <div style={{
@@ -139,34 +163,11 @@ export default function DrinksMap() {
                     <input type='radio' name='drinks' value='beer'/>
                 </label>
             </form>
-            <br />
-                <form onChange={setFilter}>
-                    <h3>{drinkType} filter</h3>
-                        {STORE.configOptions[`coffee`].map( (option,i) => {
-                            return (
-                                <label 
-                                    key={option+i} 
-                                    htmlFor={option}
-                                >
-                                    {option}
-                                    <input
-                                        type="checkbox"
-                                        name={option}
-                                        value={option}
-                                    />
-                                </label>
-                            )
-                        })}
-                    <br />
-                    <br />
-                    {/* <button
-                        type='reset'
-                        onClick={()=>changeDrink(drinkType)}>
-                        RESET
-                    </button> */}
-                </form>
-                <br />
 
+            { drinkType ? domFilters : null }
+            
+            <br />
+            
             <LoadScript
                 googleMapsApiKey={config.MAPS_KEY}
             >
@@ -175,6 +176,7 @@ export default function DrinksMap() {
                     center={center}
                     zoom={13}
                 > 
+
                 {placesDisplay ? domplacesDisplay : null}
 
                 {selectedMarker.location && 

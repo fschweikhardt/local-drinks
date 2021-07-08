@@ -114,22 +114,14 @@ export default function DrinksMap() {
 
     const domFilters =  
                 <form onChange={setFilter}>
-                    <h3>{drinkType} filter</h3>
+                    <fieldset style={{border: 'none'}}>
+                        <legend style={{fontSize: '20px', fontWeight:'bold'}}>{drinkType} filter</legend>
                         { drinkType ? STORE.configOptions[drinkType].map( (option,i) => {
                             return (
-                                <label 
-                                    key={option+i} 
-                                    htmlFor={option}
-                                >
-                                    <input
-                                        type="checkbox"
-                                        name={option}
-                                        value={option}
-                                    />
+                                <label key={option+i} htmlFor={option}>
+                                    <input type="checkbox" name={option} id={option} value={option} />
                                     {option}
-                                    <br />
                                 </label>
-                                
                             )
                         }) : null}
                     <br />
@@ -139,6 +131,7 @@ export default function DrinksMap() {
                         onClick={()=>changeDrink(drinkType)}>
                         RESET
                     </button> */}
+                    </fieldset>
                 </form>
 
     return (
@@ -151,16 +144,18 @@ export default function DrinksMap() {
             <h1>LOCAL DRINKS</h1>
             <hr />
             <br />
-            <h3>pick your drink type</h3>
-            <form id='drinks' onChange={(e)=>changeDrink(e.target.value)}>
-                <label htmlFor='drinks'>
-                    coffee
-                    <input type='radio' name='drinks' value='coffee'/>
-                </label>
-                <label htmlFor='drinks'>
-                    beer
-                    <input type='radio' name='drinks' value='beer'/>
-                </label>
+            <form onChange={(e)=>changeDrink(e.target.value)}>
+                <fieldset style={{border: 'none'}}>
+                <legend>pick your drink type</legend>
+                    <input type='radio' name='drink' id='coffee' value='coffee'/>
+                    <label htmlFor='coffee'>
+                        coffee
+                    </label>
+                    <input type='radio' name='drink' id='beer' value='beer'/>
+                    <label htmlFor='beer'>
+                        beer
+                    </label>
+                </fieldset>
             </form>
 
             { drinkType ? domFilters : null }

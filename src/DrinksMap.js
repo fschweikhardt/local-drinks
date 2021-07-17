@@ -10,7 +10,6 @@ export default function DrinksMap() {
     const [ placesDisplay, setPlacesDisplay ] = useState([])
     const [ filterPlaces, setFilterPlaces ] = useState({})
     const [ selectedMarker, setSelectedMarker ] = useState({})
-    console.log(selectedMarker.location)
     const [ mapSize, setMapSize ] = useState(0)
 
     useEffect( ()=> {

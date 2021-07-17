@@ -10,10 +10,13 @@ export default function DrinksMap() {
     const [ placesDisplay, setPlacesDisplay ] = useState([])
     const [ filterPlaces, setFilterPlaces ] = useState({})
     const [ selectedMarker, setSelectedMarker ] = useState({})
+    console.log(selectedMarker.location)
     const [ mapSize, setMapSize ] = useState(0)
 
     useEffect( ()=> {
-        if (window.innerWidth < 1200) {
+        if (window.innerWidth < 600) {
+            setMapSize(300)
+        } else if (window.innerWidth < 1200) {
             setMapSize(500)
         } else {
             setMapSize(`${window.innerWidth}` - 700)

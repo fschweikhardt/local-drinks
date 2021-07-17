@@ -1,4 +1,4 @@
-import React,  { useState } from 'react'
+import React,  { useState, useEffect } from 'react'
 import { uniq } from 'lodash';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api'
 import config from './config';
@@ -10,6 +10,15 @@ export default function DrinksMap() {
     const [ placesDisplay, setPlacesDisplay ] = useState([])
     const [ filterPlaces, setFilterPlaces ] = useState({})
     const [ selectedMarker, setSelectedMarker ] = useState({})
+    const [ mapSize, setMapSize ] = useState(0)
+
+    useEffect( ()=> {
+        if (window.innerWidth < 1200) {
+            setMapSize(500)
+        } else {
+            setMapSize(`${window.innerWidth}` - 700)
+        }
+    }, [])
 
     const changeDrink = e => {
 
@@ -87,13 +96,9 @@ export default function DrinksMap() {
       setSelectedMarker(item);
     }
     
-    let mapSizing = `${window.innerWidth}` - 50
-    if (mapSizing > 500) {
-        mapSizing = 500
-    }
     const containerStyle = {
-        width: mapSizing,
-        height: mapSizing
+        width: mapSize,
+        height: mapSize
       };
     
       const center = {
